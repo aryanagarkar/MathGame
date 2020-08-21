@@ -4,48 +4,67 @@ using UnityEngine;
 
 namespace Questions
 {
-    abstract public class Question : MonoBehaviour
+    abstract public class Question
     {
+
         protected string difficulty;
         protected string preferredDisplayType;
-
-        protected int answer;
+        protected string[] operands;
+        protected string answer;
         protected string problem;
+        protected string[] wrongAnswers;
 
-        string[] possibleAnswers;
-
+        public Question(string difficulty)
+        {
+            this.difficulty = difficulty;
+        }
 
         public string Difficulty
         {
-            get { return difficulty; }
-        }
-        public string Problem
-        {
-            get { return problem; }
-        }
-
-        public int Answer
-        {
-            get { return answer; }
-        }
-
-        public string[] PossibleAnswers
-        {
             get
             {
-                possibleAnswers = new string[2];
-                int error = 2;
-                possibleAnswers[0] = (answer - error).ToString();
-                possibleAnswers[1] = (answer + error).ToString();
-                return possibleAnswers;
+                return difficulty;
             }
         }
 
-        protected abstract void createQuestion();
-
-        public void setProblemAndAnswer()
+        public string Problem
         {
-            createQuestion();
+            get
+            {
+                return problem;
+            }
+        }
+
+        public string Answer
+        {
+            get
+            {
+                return answer;
+            }
+        }
+
+        public string PreferredDisplayType
+        {
+            get
+            {
+                return preferredDisplayType;
+            }
+        }
+
+        public string[] Operands
+        {
+            get
+            {
+                return operands;
+            }
+        }
+
+        public string[] WrongAnswers
+        {
+            get
+            {
+                return wrongAnswers;
+            }
         }
     }
 }

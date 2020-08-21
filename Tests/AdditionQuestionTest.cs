@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using System;
+using System.Linq;
 using Questions;
 
 namespace Tests
@@ -10,21 +12,27 @@ namespace Tests
     public class AdditionQuestionTest
     {
         [Test]
-        public void createQuestionTest()
+        public void testProblemOperandsAreReasonable()
         {
-            AdditionQuestion question = new AdditionQuestion("easy", "circle");
-            question.setProblemAndAnswer();
-            string problem = question.Problem;
+            for(int i = 0; i < 100; i++){
+                Addition question = new Addition("easy");
+                string[] operands = question.Operands;
 
-            int blankIndex = problem.IndexOf(" ");
-            int secondBlankIndex = problem.IndexOf("+", blankIndex); 
+                int operand1 = int.Parse(operands[0]);
+                int operand2 = int.Parse(operands[1]);
 
-            string num1 = problem.Substring(0, blankIndex + 1);
-            string num2 = problem.Substring(secondBlankIndex + 1); 
+                Assert.IsTrue(operand1 < 20);
+                Assert.IsTrue(operand2 < 20);
+            }
+        }
 
-            Assert.IsTrue(int.Parse(num1) < 20);  
-            Assert.IsTrue(int.Parse(num2) < 20);
-            Assert.AreEqual(problem, num1 + "+" + num2);        
+        [Test]
+        public void testWrongAnswersHaveNoDuplicates(){
+            Addition question = new Addition("easy");
+            string[] wrongAnswers = question.WrongAnswers;
+             
+            Assert.IsTrue(Array.IndexOf(wrongAnswers, question.Answer) == -1);
+            Assert.IsTrue(wrongAnswers.Length == wrongAnswers.Distinct().Count());
         }
     }
 }
