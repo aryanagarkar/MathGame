@@ -18,11 +18,9 @@ namespace Tests
                 Addition question = new Addition("easy");
                 string[] operands = question.Operands;
 
-                int operand1 = int.Parse(operands[0]);
-                int operand2 = int.Parse(operands[1]);
-
-                Assert.IsTrue(operand1 < 20);
-                Assert.IsTrue(operand2 < 20);
+                for(int j = 0; j < operands.Length - 1; j++){
+                    Assert.IsTrue(int.Parse(operands[j]) < 20);
+                }
             }
         }
 
