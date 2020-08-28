@@ -22,10 +22,20 @@ namespace Tests
             journeys.Add(journey1);
             Grade grade1 = new Grade(journeys);
 
-            State state = new State(grade1, journey1, topic1, 2);
+            State state;
+            State actualState;
+            State expectedState;
+
+            state = new State(grade1, journey1, topic1, 2);
             stateMachine.CurrentState = state;
-            State actualState = stateMachine.getNextState(EventTypes.rightAnswerEvent);
-            State expectedState = new State(grade1, journey1, topic1, 3);
+            actualState = stateMachine.getNextState(EventTypes.rightAnswerEvent);
+            expectedState = new State(grade1, journey1, topic1, 3);
+            Assert.IsTrue(actualState.isEqual(expectedState));
+
+            state = new State(grade1, journey1, topic1, 5);
+            stateMachine.CurrentState = state;
+            actualState = stateMachine.getNextState(EventTypes.rightAnswerEvent);
+            expectedState = new State(grade1, journey1, topic1, 5);
             Assert.IsTrue(actualState.isEqual(expectedState));
         }
 
@@ -41,10 +51,20 @@ namespace Tests
             journeys.Add(journey1);
             Grade grade1 = new Grade(journeys);
 
-            State state = new State(grade1, journey1, topic1, 5);
+            State state;
+            State actualState;
+            State expectedState;
+
+            state = new State(grade1, journey1, topic1, 5);
             stateMachine.CurrentState = state;
-            State actualState = stateMachine.getNextState(EventTypes.wrongAnswerEvent);
-            State expectedState = new State(grade1, journey1, topic1, 4);
+            actualState = stateMachine.getNextState(EventTypes.wrongAnswerEvent);
+            expectedState = new State(grade1, journey1, topic1, 4);
+            Assert.IsTrue(actualState.isEqual(expectedState));
+
+            state = new State(grade1, journey1, topic1, 1);
+            stateMachine.CurrentState = state;
+            actualState = stateMachine.getNextState(EventTypes.wrongAnswerEvent);
+            expectedState = new State(grade1, journey1, topic1, 1);
             Assert.IsTrue(actualState.isEqual(expectedState));
         }
     }
