@@ -6,7 +6,7 @@ namespace Questions
 {
     public class Subtraction : Addition
     {
-        public Subtraction(string difficulty) : base(difficulty)
+        public Subtraction(int difficulty) : base(difficulty)
         {
             problem = string.Join(" - ", operands);
             answer = (int.Parse(operands[0]) - int.Parse(operands[1])).ToString();

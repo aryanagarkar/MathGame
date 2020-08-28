@@ -4,22 +4,22 @@ using UnityEngine;
 
 namespace Questions
 {
-    abstract public class Question
+    public class Question
     {
-
-        protected string difficulty;
+        protected int difficulty;
+        protected string[] displayTypes;
         protected string preferredDisplayType;
         protected string[] operands;
         protected string answer;
         protected string problem;
         protected string[] wrongAnswers;
 
-        public Question(string difficulty)
+        public Question(int difficulty)
         {
             this.difficulty = difficulty;
         }
 
-        public string Difficulty
+        public int Difficulty
         {
             get
             {
@@ -40,6 +40,14 @@ namespace Questions
             get
             {
                 return answer;
+            }
+        }
+
+        public string[] DisplayTypes
+        {
+            get
+            {
+                return displayTypes;
             }
         }
 

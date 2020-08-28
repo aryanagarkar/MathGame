@@ -9,13 +9,13 @@ using Questions;
 
 namespace Tests
 {
-    public class AdditionQuestionTest
+    public class AdditionTest
     {
         [Test]
         public void testProblemOperandsAreReasonable()
         {
             for(int i = 0; i < 100; i++){
-                Addition question = new Addition("easy");
+                Addition question = new Addition(1);
                 string[] operands = question.Operands;
 
                 for(int j = 0; j < operands.Length - 1; j++){
@@ -26,7 +26,7 @@ namespace Tests
 
         [Test]
         public void testWrongAnswersHaveNoDuplicates(){
-            Addition question = new Addition("easy");
+            Addition question = new Addition(1);
             string[] wrongAnswers = question.WrongAnswers;
              
             Assert.IsTrue(Array.IndexOf(wrongAnswers, question.Answer) == -1);
