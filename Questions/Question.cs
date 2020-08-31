@@ -8,7 +8,7 @@ namespace Questions
     {
         protected int difficulty;
         protected string[] displayTypes;
-        protected string preferredDisplayType;
+        protected DisplayTypeEnum preferredDisplayType;
         protected string[] operands;
         protected string answer;
         protected string problem;
@@ -51,7 +51,7 @@ namespace Questions
             }
         }
 
-        public string PreferredDisplayType
+        public DisplayTypeEnum PreferredDisplayType
         {
             get
             {

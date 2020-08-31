@@ -10,62 +10,72 @@ namespace Tests
     public class StateMachineTest
     {
         [Test]
-        public void testGetNextStateForRightAnswer()
+        public void testDifficultyIncreasesForLowDifficulty_rightAnswer()
         {
-            StateMachine stateMachine = new StateMachine();
+            State state = createStateFor(4);
 
-            ArrayList topics = new ArrayList();
-            Topic topic1 = new Topic(5, "addition");
-            topics.Add(topic1);
-            ArrayList journeys = new ArrayList();
-            Journey journey1 = new Journey(topics);
-            journeys.Add(journey1);
-            Grade grade1 = new Grade(journeys);
+            History history = new History();
+            history.push(state);
 
-            State state;
-            State actualState;
-            State expectedState;
+            StateMachine stateMachine = new StateMachine(history);
 
-            state = new State(grade1, journey1, topic1, 2);
-            stateMachine.CurrentState = state;
-            actualState = stateMachine.getNextState(EventTypes.rightAnswerEvent);
-            expectedState = new State(grade1, journey1, topic1, 3);
-            Assert.IsTrue(actualState.isEqual(expectedState));
+            Assert.IsTrue(stateMachine.processEvent(EventTypes.rightAnswerEvent).
+            isEqual(new State(state.Grade, state.Journey, state.Topic, 5, DisplayTypeEnum.circleDisplay)));
+        }
 
-            state = new State(grade1, journey1, topic1, 5);
-            stateMachine.CurrentState = state;
-            actualState = stateMachine.getNextState(EventTypes.rightAnswerEvent);
-            expectedState = new State(grade1, journey1, topic1, 5);
-            Assert.IsTrue(actualState.isEqual(expectedState));
+
+        [Test]
+        public void testNoChangeInDifficultyAtMaxDifficulty_rightAnswer()
+        {
+            State state = createStateFor(5);
+
+            History history = new History();
+            history.push(state);
+
+            StateMachine stateMachine = new StateMachine(history);
+
+            Assert.IsTrue(stateMachine.processEvent(EventTypes.rightAnswerEvent).
+            isEqual(new State(state.Grade, state.Journey, state.Topic, 5, DisplayTypeEnum.circleDisplay)));
         }
 
         [Test]
-        public void testGetNextStateForWrongAnswer(){
-            StateMachine stateMachine = new StateMachine();
+        public void testDifficultyDecreasesForDifficultyGreaterThanOne_wrongAnswer()
+        {
+            State state = createStateFor(2);
 
+            History history = new History();
+            history.push(state);
+
+            StateMachine stateMachine = new StateMachine(history);
+
+            Assert.IsTrue(stateMachine.processEvent(EventTypes.wrongAnswerEvent).
+            isEqual(new State(state.Grade, state.Journey, state.Topic, 1, DisplayTypeEnum.circleDisplay)));
+        }
+
+        [Test]
+        public void testNoChangeInDifficultyForAtMinDifficulty_wrongAnswer()
+        {
+            State state = createStateFor(1);
+            History history = new History();
+            history.push(state);
+
+            StateMachine stateMachine = new StateMachine(history);
+
+            Assert.IsTrue(stateMachine.processEvent(EventTypes.wrongAnswerEvent).
+            isEqual(new State(state.Grade, state.Journey, state.Topic, 1, DisplayTypeEnum.circleDisplay)));
+        }
+
+        private State createStateFor(int difficulty)
+        {
             ArrayList topics = new ArrayList();
-            Topic topic1 = new Topic(5, "addition");
-            topics.Add(topic1);
+            Topic topic = new Topic(difficulty, "addition");
+            topics.Add(topic);
             ArrayList journeys = new ArrayList();
-            Journey journey1 = new Journey(topics);
-            journeys.Add(journey1);
-            Grade grade1 = new Grade(journeys);
+            Journey journey = new Journey(topics);
+            journeys.Add(journey);
+            Grade grade = new Grade(journeys);
 
-            State state;
-            State actualState;
-            State expectedState;
-
-            state = new State(grade1, journey1, topic1, 5);
-            stateMachine.CurrentState = state;
-            actualState = stateMachine.getNextState(EventTypes.wrongAnswerEvent);
-            expectedState = new State(grade1, journey1, topic1, 4);
-            Assert.IsTrue(actualState.isEqual(expectedState));
-
-            state = new State(grade1, journey1, topic1, 1);
-            stateMachine.CurrentState = state;
-            actualState = stateMachine.getNextState(EventTypes.wrongAnswerEvent);
-            expectedState = new State(grade1, journey1, topic1, 1);
-            Assert.IsTrue(actualState.isEqual(expectedState));
+            return new State(grade, journey, topic, difficulty, DisplayTypeEnum.circleDisplay);
         }
     }
 }

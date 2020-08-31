@@ -18,49 +18,50 @@ namespace Questions
             wrongAnswers[0] = (int.Parse(answer) - error).ToString();
             wrongAnswers[1] = (int.Parse(answer) + error).ToString();
 
-            preferredDisplayType = "CircleDisplay";
+            preferredDisplayType = DisplayTypeEnum.circleDisplay;
         }
 
         private static string[] createOperands(int difficulty)
         {
             int len = getNumOperandsForDifficulty(difficulty);
+            int min;
+            int max;
             string[] operands = new string[len];
 
-            if (difficulty.Equals(1))
+            switch (difficulty)
             {
-                for (int i = 0; i < len; i++)
-                {
-                    operands[i] = Random.Range(1, 10).ToString();
-                }
+                case 1:
+                    min = 1;
+                    max = 10;
+                    break;
+
+                case 2:
+                    min = 11;
+                    max = 20;
+                    break;
+                case 3:
+                    min = 21;
+                    max = 30;
+                    break;
+                case 4:
+                    min = 31;
+                    max = 40;
+                    break;
+                case 5:
+                    min = 41;
+                    max = 50;
+                    break;
+                default:
+                    min = 1;
+                    max = 10;
+                    break;
             }
-            if (difficulty.Equals(2))
+
+            for (int i = 0; i < len; i++)
             {
-                for (int j = 0; j < len; j++)
-                {
-                    operands[j] = Random.Range(11, 20).ToString();
-                }
+                operands[i] = Random.Range(min, max).ToString();
             }
-            if (difficulty.Equals(3))
-            {
-                for (int k = 0; k < len; k++)
-                {
-                    operands[k] = Random.Range(21, 30).ToString();
-                }
-            }
-             if (difficulty.Equals(4))
-            {
-                for (int l = 0; l < len; l++)
-                {
-                    operands[l] = Random.Range(31, 40).ToString();
-                }
-            }
-             if (difficulty.Equals(5))
-            {
-                for (int m = 0; m < len; m++)
-                {
-                    operands[m] = Random.Range(41, 50).ToString();
-                }
-            }
+
             return operands;
         }
 
@@ -73,6 +74,10 @@ namespace Questions
                 case 2:
                     return 2;
                 case 3:
+                    return 2;
+                case 4:
+                    return 2;
+                case 5:
                     return 2;
                 default:
                     return 2;

@@ -6,83 +6,66 @@ using events;
 
 public class StateMachine
 {
-    State state;
     History hist;
 
-    public StateMachine()
+    public StateMachine(History history)
     {
-        ArrayList topics = new ArrayList();
-        Topic topic1 = new Topic(5, "addition");
-        Topic topic2 = new Topic(5, "subtraction");
-        topics.Add(topic1);
-        topics.Add(topic2);
-        ArrayList journeys = new ArrayList();
-        Journey journey1 = new Journey(topics);
-        journeys.Add(journey1);
-        Grade grade1 = new Grade(journeys);
-
-        state = new State(grade1, journey1, topic1, 5);
-        hist = new History();
-        hist.push(state);
+        this.hist = history;
     }
 
-    public State CurrentState
-    {
-        get { return state; }
-        set { state = value; }
-    }
 
-    public History CurrentHistory{
+    public History CurrentHistory
+    {
         get { return hist; }
-        set { hist = value; }
     }
 
-    public State getNextState(EventTypes ev)
+    public State processEvent(EventTypes ev)
     {
+        State state = null;
         if (ev == EventTypes.rightAnswerEvent)
         {
-            return getNextLevelForRightAnswer();
+            state = getNextStateForRightAnswer();
         }
         if (ev == EventTypes.wrongAnswerEvent)
         {
-            return getNextLevelForWrongAnswer();
+            state = getNextStateForWrongAnswer();
         }
-        return null;
+        hist.push(state);
+        return state;
     }
 
-    private State getNextLevelForRightAnswer()
+    private State getNextStateForRightAnswer()
     {
+        State state = hist.peek();
         int difficulty = state.Difficulty;
         int maxDifficulty = state.Topic.MaxDifficulty;
+        State newState = null;
 
         if (difficulty < maxDifficulty)
         {
-            State newState = new State(state.Grade, state.Journey, state.Topic, difficulty + 1);
-            state = newState;
-            hist.push(newState);
-            return newState;
+            newState = new State(state.Grade, state.Journey, state.Topic, difficulty + 1, DisplayTypeEnum.circleDisplay);
         }
-        else
-        {
-            return state;
+        if(difficulty == maxDifficulty){
+            newState = state;
         }
+        return newState;
     }
 
-    private State getNextLevelForWrongAnswer()
+    private State getNextStateForWrongAnswer()
     {
+        State state = hist.peek();
         int difficulty = state.Difficulty;
         int maxDifficulty = state.Topic.MaxDifficulty;
+        State newState = null;
 
         if (difficulty != 1)
         {
-            State newState = new State(state.Grade, state.Journey, state.Topic, difficulty - 1);
-            state = newState;
-            hist.push(newState);
-            return newState;
+            newState = new State(state.Grade, state.Journey, state.Topic, difficulty - 1, DisplayTypeEnum.circleDisplay);
         }
         else
         {
-            return state;
+            newState = state;
         }
+        return newState;
     }
 }

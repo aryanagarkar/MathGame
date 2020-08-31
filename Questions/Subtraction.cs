@@ -11,7 +11,7 @@ namespace Questions
             problem = string.Join(" - ", operands);
             answer = (int.Parse(operands[0]) - int.Parse(operands[1])).ToString();
 
-            preferredDisplayType = "SquareDisplay";
+            preferredDisplayType = DisplayTypeEnum.squareDisplay;
         }
     }
 }
