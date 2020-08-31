@@ -16,19 +16,14 @@ namespace Tests
         public void testDifficultyIncrementsForLowDifficulty_rightAnswer()
         {
             // Setup
-            int difficulty = 2;
-            State state = createStateFor(difficulty);
-
-            History history = new History();
-            history.push(state);
-
-            StateMachine stateMachine = new StateMachine(history);
+            StateMachine stateMachine = createStateMachineFor(2);
 
             // Test
             State newState = stateMachine.processEvent(EventTypes.rightAnswerEvent);
 
             // Assertions
-            State expected = new State(state.Grade, state.Journey, state.Topic, difficulty + 1, state.DisplayType);
+            State state = stateMachine.CurrentHistory.peek();
+            State expected = new State(state.Grade, state.Journey, state.Topic, state.Difficulty + 1, state.DisplayType);
             Assert.IsTrue(newState.IsEqual(expected));
         }
 
@@ -37,19 +32,14 @@ namespace Tests
         public void testNoChangeInDifficultyAtMaxDifficulty_rightAnswer()
         {
             // Setup
-            int difficulty = 5;
-            State state = createStateFor(difficulty);
-
-            History history = new History();
-            history.push(state);
-
-            StateMachine stateMachine = new StateMachine(history);
+            StateMachine stateMachine = createStateMachineFor(5);
 
             // Test
             State newState = stateMachine.processEvent(EventTypes.rightAnswerEvent);
 
             // Assertions
-            State expected = new State(state.Grade, state.Journey, state.Topic, difficulty, state.DisplayType);
+                State state = stateMachine.CurrentHistory.peek();
+            State expected = new State(state.Grade, state.Journey, state.Topic, state.Difficulty, state.DisplayType);
             Assert.IsTrue(newState.IsEqual(expected));
         }
 
@@ -57,19 +47,14 @@ namespace Tests
         public void testDifficultyDecreasesForDifficultyGreaterThanOne_wrongAnswer()
         {
             // Setup
-            int difficulty = 2;
-            State state = createStateFor(difficulty);
-
-            History history = new History();
-            history.push(state);
-
-            StateMachine stateMachine = new StateMachine(history);
+            StateMachine stateMachine = createStateMachineFor(2);
 
             // Test
             State newState = stateMachine.processEvent(EventTypes.wrongAnswerEvent);
 
             // Assertions
-            State expected = new State(state.Grade, state.Journey, state.Topic, difficulty - 1, state.DisplayType);
+                State state = stateMachine.CurrentHistory.peek();
+            State expected = new State(state.Grade, state.Journey, state.Topic, state.Difficulty - 1, state.DisplayType);
             Assert.IsTrue(newState.IsEqual(expected));
         }
 
@@ -77,19 +62,14 @@ namespace Tests
         public void testNoChangeInDifficultyForAtMinDifficulty_wrongAnswer()
         {
             // Setup
-            int difficulty = 1;
-            State state = createStateFor(difficulty);
-
-            History history = new History();
-            history.push(state);
-
-            StateMachine stateMachine = new StateMachine(history);
+            StateMachine stateMachine = createStateMachineFor(1);
 
             // Test
             State newState = stateMachine.processEvent(EventTypes.wrongAnswerEvent);
 
             // Assertions
-            State expected = new State(state.Grade, state.Journey, state.Topic, difficulty, state.DisplayType);
+                State state = stateMachine.CurrentHistory.peek();
+            State expected = new State(state.Grade, state.Journey, state.Topic, state.Difficulty, state.DisplayType);
             Assert.IsTrue(newState.IsEqual(expected));
         }
 
@@ -104,6 +84,15 @@ namespace Tests
             Grade grade = new Grade(journeys);
 
             return new State(grade, journey, topic, difficulty, DisplayTypeEnum.circleDisplay);
+        }
+
+        private StateMachine createStateMachineFor(int difficulty){
+            State state = createStateFor(difficulty);
+
+            History history = new History();
+            history.push(state);
+
+            return new StateMachine(history);
         }
     }
 }
