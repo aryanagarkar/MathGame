@@ -9,66 +9,94 @@ namespace Tests
 {
     public class StateMachineTest
     {
+
+        private static readonly int MAX_TOPIC_DIFFICULTY = 5;
+
         [Test]
-        public void testDifficultyIncreasesForLowDifficulty_rightAnswer()
+        public void testDifficultyIncrementsForLowDifficulty_rightAnswer()
         {
-            State state = createStateFor(4);
+            // Setup
+            int difficulty = 2;
+            State state = createStateFor(difficulty);
 
             History history = new History();
             history.push(state);
 
             StateMachine stateMachine = new StateMachine(history);
 
-            Assert.IsTrue(stateMachine.processEvent(EventTypes.rightAnswerEvent).
-            isEqual(new State(state.Grade, state.Journey, state.Topic, 5, DisplayTypeEnum.circleDisplay)));
+            // Test
+            State newState = stateMachine.processEvent(EventTypes.rightAnswerEvent);
+
+            // Assertions
+            State expected = new State(state.Grade, state.Journey, state.Topic, difficulty + 1, state.DisplayType);
+            Assert.IsTrue(newState.IsEqual(expected));
         }
 
 
         [Test]
         public void testNoChangeInDifficultyAtMaxDifficulty_rightAnswer()
         {
-            State state = createStateFor(5);
+            // Setup
+            int difficulty = 5;
+            State state = createStateFor(difficulty);
 
             History history = new History();
             history.push(state);
 
             StateMachine stateMachine = new StateMachine(history);
 
-            Assert.IsTrue(stateMachine.processEvent(EventTypes.rightAnswerEvent).
-            isEqual(new State(state.Grade, state.Journey, state.Topic, 5, DisplayTypeEnum.circleDisplay)));
+            // Test
+            State newState = stateMachine.processEvent(EventTypes.rightAnswerEvent);
+
+            // Assertions
+            State expected = new State(state.Grade, state.Journey, state.Topic, difficulty, state.DisplayType);
+            Assert.IsTrue(newState.IsEqual(expected));
         }
 
         [Test]
         public void testDifficultyDecreasesForDifficultyGreaterThanOne_wrongAnswer()
         {
-            State state = createStateFor(2);
+            // Setup
+            int difficulty = 2;
+            State state = createStateFor(difficulty);
 
             History history = new History();
             history.push(state);
 
             StateMachine stateMachine = new StateMachine(history);
 
-            Assert.IsTrue(stateMachine.processEvent(EventTypes.wrongAnswerEvent).
-            isEqual(new State(state.Grade, state.Journey, state.Topic, 1, DisplayTypeEnum.circleDisplay)));
+            // Test
+            State newState = stateMachine.processEvent(EventTypes.wrongAnswerEvent);
+
+            // Assertions
+            State expected = new State(state.Grade, state.Journey, state.Topic, difficulty - 1, state.DisplayType);
+            Assert.IsTrue(newState.IsEqual(expected));
         }
 
         [Test]
         public void testNoChangeInDifficultyForAtMinDifficulty_wrongAnswer()
         {
-            State state = createStateFor(1);
+            // Setup
+            int difficulty = 1;
+            State state = createStateFor(difficulty);
+
             History history = new History();
             history.push(state);
 
             StateMachine stateMachine = new StateMachine(history);
 
-            Assert.IsTrue(stateMachine.processEvent(EventTypes.wrongAnswerEvent).
-            isEqual(new State(state.Grade, state.Journey, state.Topic, 1, DisplayTypeEnum.circleDisplay)));
+            // Test
+            State newState = stateMachine.processEvent(EventTypes.wrongAnswerEvent);
+
+            // Assertions
+            State expected = new State(state.Grade, state.Journey, state.Topic, difficulty, state.DisplayType);
+            Assert.IsTrue(newState.IsEqual(expected));
         }
 
         private State createStateFor(int difficulty)
         {
             ArrayList topics = new ArrayList();
-            Topic topic = new Topic(difficulty, "addition");
+            Topic topic = new Topic(MAX_TOPIC_DIFFICULTY, "addition");
             topics.Add(topic);
             ArrayList journeys = new ArrayList();
             Journey journey = new Journey(topics);

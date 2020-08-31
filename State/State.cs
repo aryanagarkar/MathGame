@@ -46,13 +46,9 @@ public class State
         get { return displayType; }
     }
 
-    public bool isEqual(State other)
+    public bool IsEqual(State other)
     {
-        if (grade == other.Grade && journey == other.Journey
-         && topic == other.topic && difficulty == other.Difficulty)
-        {
-            return true;
-        }
-        return false;
+        return (grade == other.Grade && journey == other.Journey
+             && topic == other.topic && difficulty == other.Difficulty && displayType == other.displayType);
     }
 }
