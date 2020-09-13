@@ -2,9 +2,9 @@
 {
     public enum CharacterTypeEnum
     {
-        prince,
-        princess,
-        farmer,
-        troll
+        Prince,
+        Princess,
+        Wizard,
+        Troll
     }
 }

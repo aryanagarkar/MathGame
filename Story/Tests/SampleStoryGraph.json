@@ -1,0 +1,26 @@
+{
+    "nodes": {
+      "1": {
+        "conversations": [
+          "Hello"
+        ],
+        "character": "Troll",
+        "links": {
+          "failure": [
+            "start"
+          ]
+        }
+      },
+      "start": {
+        "conversations": [
+          "Hello"
+        ],
+        "character": "Wizard",
+        "links": {
+          "success": [
+            "1"
+          ]
+        }
+      }
+    }
+  }

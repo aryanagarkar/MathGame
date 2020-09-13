@@ -1,41 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// using System;
+// using System.Collections.Generic;
 
-namespace service
-{
-    public class Link
-    {
-        GraphNode startNode;
-        GraphNode endNode;
+// namespace service
+// {
+//     public class Link
+//     {
+//         int startNodeID;
+//         int endNodeID;
 
-        AnnotationEnum annotation;
-        bool activated;
+//         String annotation;
+//         bool activated;
 
-        public Link(GraphNode StartNode, GraphNode endNode, AnnotationEnum annotation){
-            this.startNode = StartNode;
-            this.endNode = endNode;
-            this.annotation = annotation;
-            activated = false;
-        }
+//         public Link(int startNodeID, int endNodeID, AnnotationEnum annotation){
+//             this.startNodeID = startNodeID;
+//             this.endNodeID = endNodeID;
+//             this.annotation = annotation.ToString();
+//             activated = false;
+//         }
 
-        public GraphNode StartNode{
-            get{return startNode; }
-        }
+//         public int StartNodeID{
+//             get{return startNodeID; }
+//         }
 
-        public GraphNode EndNode{
-            get{return endNode; }
-        }
+//         public int EndNodeID{
+//             get{return endNodeID; }
+//         }
 
-        public AnnotationEnum Annotation{
-            get{return annotation; }
-        }
+//         public String Annotation{
+//             get{return annotation.ToString(); }
+//         }
 
-        public void activate(){
-            activated = true;
-        }
+//         public void activate(){
+//             activated = true;
+//         }
 
-        public void deactivate(){
-            activated = false;
-        }
-    }
-}
+//         public void deactivate(){
+//             activated = false;
+//         }
+//     }
+// }

@@ -1,39 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace service
 {
     public class Graph
     {
-        List<GraphNode> nodes;
-        List<Link> links;
+        public Dictionary<string, GraphNode> nodes {get; set;}
 
-        public Graph()
-        {
-            nodes = new List<GraphNode>();
-            List<String> conversations = new List<String>();
-            string sentence = new string("I will give you directions if you help me solve my problem");
-            conversations.Add(sentence);
+        // public Graph(Dictionary<string, GraphNode> nodes)
+        // {
+        //     this.nodes = nodes;
+        // }
+        public Graph(){}
 
-            GraphNode node1 = new GraphNode(CharacterTypeEnum.farmer, conversations);
-
-            GraphNode node2 = new GraphNode(CharacterTypeEnum.troll, conversations);
-
-            nodes.Add(node1);
-            nodes.Add(node2);
-
-            links = new List<Link>();
-            links.Add(new Link(node1, node2, AnnotationEnum.success));
+        public override bool Equals(object obj){
+            if(obj == null){
+                return false;
+            }
+            Graph graph = obj as Graph;
+            if(nodes.Count == graph.nodes.Count){
+                for(int i = 0; i < nodes.Count; i++){
+                    string key = nodes.Keys.ElementAt(i);
+                    if(graph.nodes[key] == null) {
+                        return false;
+                    }
+                    if(!nodes[key].Equals(graph.nodes[key])) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
         }
 
-        public List<GraphNode> Nodes
+        public override int GetHashCode()
         {
-            get { return nodes; }
-        }
-
-         public List<Link> Links
-        {
-            get { return links; }
+            return base.GetHashCode();
         }
     }
 }
