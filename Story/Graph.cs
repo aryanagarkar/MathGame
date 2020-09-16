@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Service.Util;
+﻿using Service.Util;
 
 namespace service
 {
     public class Graph
     {
-        public MDictionary<string, GraphNode> nodes { get; set; }
+        public MDictionary<string, GraphNode> Nodes { get; set; }
 
         public Graph() { }
 
@@ -17,7 +15,7 @@ namespace service
                 return false;
             }
             Graph graph = obj as Graph;
-            return nodes.Equals(graph.nodes);
+            return Nodes.Equals(graph.Nodes);
         }
 
         public override int GetHashCode()

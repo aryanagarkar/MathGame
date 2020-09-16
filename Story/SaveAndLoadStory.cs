@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
-using System.Collections.Generic;
 
 namespace service
 {
@@ -19,7 +18,6 @@ namespace service
         public static Graph loadStory(String path)
         {
             String jsonString = File.ReadAllText(path);
-            //Console.WriteLine(jsonString);
             Graph graph = JsonSerializer.Deserialize<Graph>(jsonString);
 
             return graph;

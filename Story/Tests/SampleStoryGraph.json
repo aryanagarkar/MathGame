@@ -1,23 +1,23 @@
 {
-    "nodes": {
+    "Nodes": {
       "1": {
-        "conversations": [
+        "Conversations": [
           "Hello"
         ],
-        "character": "Troll",
-        "links": {
-          "failure": [
+        "Character": "Troll",
+        "Links": {
+          "Failure": [
             "start"
           ]
         }
       },
       "start": {
-        "conversations": [
+        "Conversations": [
           "Hello"
         ],
-        "character": "Wizard",
-        "links": {
-          "success": [
+        "Character": "Wizard",
+        "Links": {
+          "Success": [
             "1"
           ]
         }

@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using System.Collections.Generic;
 using Service.Util;
 
 namespace service.Tests
@@ -12,55 +11,69 @@ namespace service.Tests
         public void testMDictionariesEqual_SameOrder()
         {
             // Data setup
+            MDictionary<string, string> actual = new MDictionary<string, string>();
+            actual.Add("1", "start");
+            actual.Add("2", "start");
                         
             // Expectations
-            MDictionary<string, string> dict1 = new MDictionary<string, string>();
-            dict1.Add("1", "start");
-            dict1.Add("2", "start");
-
-            MDictionary<string, string> dict2 = new MDictionary<string, string>();
-            dict2.Add("1", "start");
-            dict2.Add("2", "start");
+            MDictionary<string, string> expected = new MDictionary<string, string>();
+            expected.Add("1", "start");
+            expected.Add("2", "start");
 
             // Test and Assert
-            Assert.AreEqual(dict1, dict2);
+            Assert.AreEqual(actual, expected);
         }
 
         [Test]
         public void testMDictionariesEqual_differentOrder()
         {
             // Data setup
+            MDictionary<string, string> actual = new MDictionary<string, string>();
+            actual.Add("1", "start");
+            actual.Add("2", "node1");
                         
             // Expectations
-            MDictionary<string, string> dict1 = new MDictionary<string, string>();
-            dict1.Add("1", "start");
-            dict1.Add("2", "node1");
-
-            MDictionary<string, string> dict2 = new MDictionary<string, string>();
-            dict2.Add("2", "node1");
-            dict2.Add("1", "start");
+            MDictionary<string, string> expected = new MDictionary<string, string>();
+            expected.Add("2", "node1");
+            expected.Add("1", "start");
 
             // Test and Assert
-            Assert.AreEqual(dict1, dict2);
+            Assert.AreEqual(actual, expected);
         }
 
         [Test]
         public void testMDictionariesNotEqual_differentNumberOfElements()
         {
             // Data setup
+            MDictionary<string, string> actual = new MDictionary<string, string>();
+            actual.Add("1", "start");
+            actual.Add("2", "node1");
                         
             // Expectations
-            MDictionary<string, string> dict1 = new MDictionary<string, string>();
-            dict1.Add("1", "start");
-            dict1.Add("2", "node1");
-
-            MDictionary<string, string> dict2 = new MDictionary<string, string>();
-            dict2.Add("2", "node1");
-            dict2.Add("1", "start");
-            dict2.Add("3", "node2");
+            MDictionary<string, string> expected = new MDictionary<string, string>();
+            expected.Add("2", "node1");
+            expected.Add("1", "start");
+            expected.Add("3", "node2");
 
             // Test and Assert
-            Assert.IsFalse(dict1.Equals(dict2));
+            Assert.IsFalse(actual.Equals(expected));
+        }
+
+        [Test]
+        public void testMDictionariesNotEqual_differentValues()
+        {
+            // Data setup
+            MDictionary<string, string> actual = new MDictionary<string, string>();
+            actual.Add("1", "start");
+            actual.Add("2", "node1");
+                        
+            // Expectations
+            MDictionary<string, string> expected = new MDictionary<string, string>();
+            expected.Add("1", "node1");
+            expected.Add("2", "node2");
+
+            // Test and Assert
+            Assert.IsFalse(actual.Equals(expected));
         }
     }
 }

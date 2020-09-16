@@ -7,9 +7,9 @@ namespace service
 {
     public class GraphNode
     {
-        public string character { get; set; }
-        public List<string> conversations { get; set; }
-        public MDictionary<string, List<string>> links { get; set; }
+        public string Character { get; set; }
+        public List<string> Conversations { get; set; }
+        public MDictionary<string, List<string>> Links { get; set; }
 
 
         public GraphNode() { }
@@ -18,9 +18,9 @@ namespace service
         {
             GraphNode node = (GraphNode)obj;
 
-            return character.Equals(node.character) 
-            && conversations.SequenceEqual(node.conversations) 
-            && links.Equals(node.links);
+            return Character.Equals(node.Character) 
+            && Conversations.SequenceEqual(node.Conversations) 
+            && Links.Equals(node.Links);
         }
 
         public override int GetHashCode()
