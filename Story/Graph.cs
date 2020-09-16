@@ -6,7 +6,9 @@ namespace service
     {
         public MDictionary<string, GraphNode> Nodes { get; set; }
 
-        public Graph() { }
+        public Graph() {
+            Nodes = new MDictionary<string, GraphNode>();
+         }
 
         public override bool Equals(object obj)
         {
