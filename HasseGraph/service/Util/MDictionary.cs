@@ -8,7 +8,6 @@ namespace Service.Util
         public MDictionary() : base() { }
         public MDictionary(MDictionary<TKey, TValue> dict) : base(dict)
         {
-
         }
 
         public override bool Equals(object obj)
