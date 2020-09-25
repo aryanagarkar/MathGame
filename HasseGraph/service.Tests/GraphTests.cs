@@ -12,11 +12,12 @@ namespace service.Tests
             Graph graph = createDefaultGraph();
 
             //Expectations
-            int numConcepts = 4;
+            int numLinks = 3;
 
             //Test and assert
-            Assert.AreEqual(graph.Nodes.Count, numConcepts);
+            Assert.AreEqual(numLinks, graph.Links.Count);
         }
+       
         public void TestGraph_AllNodesPresent()
         {
             //Setup
@@ -33,6 +34,7 @@ namespace service.Tests
         private Graph createDefaultGraph()
         {
             Graph graph = new GraphBuilder()
+                    .addLink("B", "C")
                     .addLink("B", "C")
                     .addLink("B", "D")
                     .addLink("C", "E")

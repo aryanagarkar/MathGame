@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Service.Util;
+using System;
 
 namespace service
 {
@@ -27,7 +29,9 @@ namespace service
         public override bool Equals(object obj)
         {
             GraphNode node = (GraphNode)obj;
-            return incomingLinks.SequenceEqual(node.IncomingLinks) && outgoingLinks.SequenceEqual(node.OutgoingLinks);
+            return this == node;
+            //return incomingLinks.getList().SequenceEqual(node.IncomingLinks.getList()) 
+            //&& outgoingLinks.getList().SequenceEqual(node.OutgoingLinks.getList());
         }
 
         public override int GetHashCode()

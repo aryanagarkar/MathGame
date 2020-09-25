@@ -17,19 +17,18 @@ namespace service
             bool duplicate = false;
             foreach (GraphLink link in links)
             {
-                if (link.Source.Equals(nodeId1) && link.Source.Equals(nodeId2))
+                if (link.Source.Equals(nodeId1) && link.Target.Equals(nodeId2))
                 {
                     duplicate = true;
                 }
             }
 
             if(duplicate == false){
-                links.Add(new GraphLink(nodeId1, nodeId2));
+                links.AddItem(new GraphLink(nodeId1, nodeId2));
+                nodeId1.OutgoingLinks.AddItem(nodeId2);
+                nodeId2.IncomingLinks.AddItem(nodeId1);
             }
-
-            nodeId1.OutgoingLinks.Add(nodeId2);
-            nodeId2.IncomingLinks.Add(nodeId1);
-
+            
             return this;
         }
 

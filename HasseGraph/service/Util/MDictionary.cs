@@ -6,7 +6,7 @@ namespace Service.Util
     public class MDictionary<TKey, TValue> : Dictionary<TKey, TValue>
     {
         public MDictionary() : base() { }
-        public MDictionary(MDictionary<TKey, TValue> dict) : base(dict) { }
+        public MDictionary(MDictionary<TKey, TValue> dict) : base(dict){}
 
         public override bool Equals(object obj)
         {
