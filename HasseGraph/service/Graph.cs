@@ -9,7 +9,7 @@ namespace service
         readonly MDictionary<string, GraphNode> idNodeMap;
         readonly MList<GraphLink> links = new MList<GraphLink>();
 
-        public Graph(MDictionary<string, GraphNode> idNodeMap, List<GraphLink> links)
+        internal Graph(MDictionary<string, GraphNode> idNodeMap, List<GraphLink> links)
         {
             this.idNodeMap = idNodeMap;
             this.links = (MList<GraphLink>)links;

@@ -8,7 +8,7 @@ namespace service
         readonly MList<GraphNode> incomingLinks;
         readonly MList<GraphNode> outgoingLinks;
 
-        public GraphNode()
+        internal GraphNode()
         {
             incomingLinks = new MList<GraphNode>();
             outgoingLinks = new MList<GraphNode>();

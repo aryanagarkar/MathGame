@@ -7,7 +7,7 @@ namespace service
         GraphNode source;
         GraphNode target;
 
-        public GraphLink(GraphNode source, GraphNode target)
+        internal GraphLink(GraphNode source, GraphNode target)
         {
             this.source = source;
             this.target = target;
