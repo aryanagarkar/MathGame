@@ -7,12 +7,12 @@ namespace service
     public class Graph
     {
         readonly MDictionary<string, GraphNode> idNodeMap;
-        List<GraphLink> links = new MList<GraphLink>();
+        readonly MList<GraphLink> links = new MList<GraphLink>();
 
         public Graph(MDictionary<string, GraphNode> idNodeMap, List<GraphLink> links)
         {
             this.idNodeMap = idNodeMap;
-            this.links = links;
+            this.links = (MList<GraphLink>)links;
         }
 
         public MDictionary<string, GraphNode> IdNodeMap
@@ -24,7 +24,7 @@ namespace service
             get{return idNodeMap.Values.ToList(); }
         }
 
-        public  List<GraphLink> Links{
+        public  MList<GraphLink> Links{
             get{return links; }
         }
     }

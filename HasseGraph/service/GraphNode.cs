@@ -5,9 +5,8 @@ namespace service
 {
     public class GraphNode
     {
-        readonly List<GraphNode> incomingLinks;
-        readonly List<GraphNode> outgoingLinks;
-
+        readonly MList<GraphNode> incomingLinks;
+        readonly MList<GraphNode> outgoingLinks;
 
         public GraphNode()
         {
@@ -15,18 +14,19 @@ namespace service
             outgoingLinks = new MList<GraphNode>();
         }
 
-        public List<GraphNode> IncomingLinks
+        public MList<GraphNode> IncomingLinks
         {
             get { return incomingLinks; }
         }
 
-        public List<GraphNode> OutgoingLinks
+        public MList<GraphNode> OutgoingLinks
         {
             get { return outgoingLinks; }
         }
 
-        public override bool Equals(object obj){
-            GraphNode node = (GraphNode)obj; 
+        public override bool Equals(object obj)
+        {
+            GraphNode node = (GraphNode)obj;
             return incomingLinks.SequenceEqual(node.IncomingLinks) && outgoingLinks.SequenceEqual(node.OutgoingLinks);
         }
 
@@ -34,5 +34,5 @@ namespace service
         {
             return base.GetHashCode();
         }
-    }   
+    }
 }

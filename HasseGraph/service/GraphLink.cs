@@ -7,7 +7,6 @@ namespace service
         GraphNode source;
         GraphNode target;
 
-
         public GraphLink(GraphNode source, GraphNode target)
         {
             this.source = source;
