@@ -20,3 +20,14 @@
 /home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/obj/Debug/netcoreapp3.1/service.AssemblyInfo.cs
 /home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/obj/Debug/netcoreapp3.1/service.dll
 /home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/obj/Debug/netcoreapp3.1/service.pdb
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/bin/Debug/netcoreapp3.1/service
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/bin/Debug/netcoreapp3.1/service.deps.json
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/bin/Debug/netcoreapp3.1/service.runtimeconfig.json
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/bin/Debug/netcoreapp3.1/service.runtimeconfig.dev.json
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/bin/Debug/netcoreapp3.1/service.dll
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/bin/Debug/netcoreapp3.1/service.pdb
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/obj/Debug/netcoreapp3.1/service.csprojAssemblyReference.cache
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/obj/Debug/netcoreapp3.1/service.AssemblyInfoInputs.cache
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/obj/Debug/netcoreapp3.1/service.AssemblyInfo.cs
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/obj/Debug/netcoreapp3.1/service.dll
+/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/obj/Debug/netcoreapp3.1/service.pdb

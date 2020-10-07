@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service.Tests/service.Tests.csproj": {}
+    "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service.Tests/service.Tests.csproj": {}
   },
   "projects": {
-    "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service.Tests/service.Tests.csproj": {
+    "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service.Tests/service.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service.Tests/service.Tests.csproj",
+        "projectUniqueName": "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service.Tests/service.Tests.csproj",
         "projectName": "service.Tests",
-        "projectPath": "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service.Tests/service.Tests.csproj",
+        "projectPath": "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service.Tests/service.Tests.csproj",
         "packagesPath": "/home/arya/.nuget/packages/",
-        "outputPath": "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service.Tests/obj/",
+        "outputPath": "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service.Tests/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
@@ -28,8 +28,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/service.csproj": {
-                "projectPath": "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/service.csproj"
+              "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/service.csproj": {
+                "projectPath": "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/service.csproj"
               }
             }
           }
@@ -75,14 +75,14 @@
         }
       }
     },
-    "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/service.csproj": {
+    "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/service.csproj",
+        "projectUniqueName": "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/service.csproj",
         "projectName": "service",
-        "projectPath": "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/service.csproj",
+        "projectPath": "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/service.csproj",
         "packagesPath": "/home/arya/.nuget/packages/",
-        "outputPath": "/home/arya/Workspace/AdaptiveMathGame/HasseGraph/service/obj/",
+        "outputPath": "/home/arya/Workspace/MathGame_oct5th/MathGame/HasseGraph/service/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"

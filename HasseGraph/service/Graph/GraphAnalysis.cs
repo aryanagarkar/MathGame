@@ -86,6 +86,7 @@ namespace Service
 
         private Boolean isReduced(GraphNode root)
         {
+            List<GraphNode> nodesVisited = new List<GraphNode>();
             Queue<GraphNode> q = new Queue<GraphNode>();
             q.Enqueue(root);
             while (q.Any())
@@ -93,6 +94,8 @@ namespace Service
                 GraphNode v = q.Dequeue();
                 foreach(string s in v.OutgoingLinks){
                     GraphNode w = graph.IdNodeMap[s];
+                    if(nodesVisited.Contains(w)){return false;}
+                    nodesVisited.Add(w);
                     q.Enqueue(w);
                 }
             }
