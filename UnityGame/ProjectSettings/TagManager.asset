@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Circle
   - QuestionCanvas
+  - Circle
   layers:
   - Default
   - TransparentFX
@@ -41,7 +41,7 @@ TagManager:
   - 
   m_SortingLayers:
   - name: Sprites
-    uniqueID: 1397891645
+    uniqueID: 1230506769
     locked: 0
   - name: Default
     uniqueID: 0
