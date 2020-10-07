@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace Service.Util
 {
     public class MDictionary<TKey, TValue> : Dictionary<TKey, TValue>
     {
-        public MDictionary() : base() { }
-        public MDictionary(MDictionary<TKey, TValue> dict) : base(dict){}
+        public MDictionary() : base() {
+        }
+        public MDictionary(IDictionary<TKey, TValue> dict) : base(dict) {
+        }
 
         public override bool Equals(object obj)
         {
@@ -47,6 +50,10 @@ namespace Service.Util
                 }
             }
             return true;
+        }
+
+        public ReadOnlyDictionary<TKey, TValue> getReadOnlyDictionary(){
+             return new ReadOnlyDictionary<TKey, TValue>(this);
         }
     }
 }
