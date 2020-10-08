@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace Service
+namespace Service.graph
 {
     public class GraphNode
     {

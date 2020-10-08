@@ -1,7 +1,8 @@
 using NUnit.Framework;
 using System;
+using Service.graph;
 
-namespace Service.Tests
+namespace Service.tests
 {
     [TestFixture]
     public class GraphBuilderTests

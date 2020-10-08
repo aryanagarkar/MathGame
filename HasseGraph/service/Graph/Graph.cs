@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace Service
+namespace Service.graph
 {
     public class Graph
     {
@@ -16,14 +16,16 @@ namespace Service
             this.links = links;
         }
 
+        public Graph(){}
+
         public IDictionary<string, GraphNode> IdNodeMap
         {
             get { return idNodeMap.getReadOnlyDictionary(); }
         }
 
-        public IList<GraphNode> Nodes
+        public IList<String> Nodes
         {
-            get { return idNodeMap.Values.ToList().AsReadOnly(); }
+            get { return idNodeMap.Keys.ToList().AsReadOnly(); }
         }
 
         public IList<GraphLink> Links
@@ -34,8 +36,8 @@ namespace Service
         public override bool Equals(object obj)
         {
             Graph graph = (Graph)obj;
-            HashSet<GraphNode> thisNodes = new HashSet<GraphNode>(Nodes);
-            HashSet<GraphNode> otherNodes = new HashSet<GraphNode>(graph.Nodes);
+            HashSet<string> thisNodes = new HashSet<string>(Nodes);
+            HashSet<string> otherNodes = new HashSet<string>(graph.Nodes);
 
             return thisNodes.SetEquals(otherNodes);
         }

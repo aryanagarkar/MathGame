@@ -2,7 +2,7 @@
 using System.Linq;
 using System;
 
-namespace Service
+namespace Service.graph
 {
     public class GraphAnalysis
     {
@@ -105,11 +105,11 @@ namespace Service
         private HashSet<GraphNode> getSetOfStartNodes()
         {
             HashSet<GraphNode> startNodes = new HashSet<GraphNode>();
-            foreach (GraphNode node in graph.Nodes)
+            foreach (string node in graph.Nodes)
             {
-                if (!node.IncomingLinks.Any())
+                if (!graph.IdNodeMap[node].IncomingLinks.Any())
                 {
-                    startNodes.Add(node);
+                    startNodes.Add(graph.IdNodeMap[node]);
                 }
             }
             return startNodes;

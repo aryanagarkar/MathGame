@@ -2,8 +2,9 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Service.graph;
 
-namespace Service.Tests
+namespace Service.tests
 {
     [TestFixture]
     public class GraphAnalysisTests
@@ -104,6 +105,23 @@ namespace Service.Tests
 
             //Test and assert
             Assert.IsTrue(analysis.IsHesse);
+        }
+
+         [Test]
+        public void TestIsNotHesse()
+        {
+            //Setup
+            Graph graph = new Graph.Builder()
+                    .addLink("A", "B")
+                    .addLink("B", "C")
+                    .addLink("A", "C")
+                    .build();
+            GraphAnalysis analysis = new GraphAnalysis(graph);
+
+            //Expectations
+
+            //Test and assert
+            Assert.IsFalse(analysis.IsHesse);
         }
     }
 }
