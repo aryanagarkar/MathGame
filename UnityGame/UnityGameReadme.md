@@ -1,18 +1,19 @@
-**This readme is for games made in the unity development platform. Any folder with assets in it is a unity game.**
+**This readme is for games made in the unity development platform.**
 
 **Prerequisites:**
 
 You need to have the unity editor installed. 
 
-Unity is supported on these platforms : Android, iOS, Linux, macOs and windows, webgl and unity web player
+Unity is supported on these platforms : Android, iOS, Linux, macOs, windows, webgl and unity web player
 
 Unity download link: https://unity3d.com/get-unity/download  
 
 You can directly install unity or install it from unity hub. 
 
-You also need visual studio or visual studio code. If you installed unity hub, it will ask you whether you want to install the ide when you install unity.
+You also need visual studio or visual studio code. When you choose the modules to install with unity, 
+you should see an option to install the ide.
 
-These is the url if you want to install the ide manually:
+Here is the url if you want to install the ide manually or you do not see the option:
 
 Visual studio or visual studio code: https://visualstudio.microsoft.com/downloads/
 
