@@ -1,4 +1,4 @@
-**This readme is for games made in the unity development platform. Any folder with assets in it is a unity game.**
+**This readme is for games made in the unity development platform.**
 
 **Prerequisites:**
 
