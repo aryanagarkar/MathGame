@@ -1,4 +1,4 @@
-**This is the readme for console applications. All other folders which are not unity game folders are console apps.**
+**This is the readme for console applications. Everything inside the console apps folder are console apps.**
 
 **Prerequisites:**
 
