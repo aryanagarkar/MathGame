@@ -1,4 +1,4 @@
-**This is the readme for console applications. Everything inside the console apps folder are console apps.**
+**This is the readme for console applications.**
 
 **Prerequisites:**
 
