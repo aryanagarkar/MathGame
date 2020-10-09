@@ -8,29 +8,29 @@ namespace Service
     public class KnowledgeState
     {
         readonly Graph hesseGraph;
-        readonly List<string> concepts;
-        readonly List<string> fringe;
+        HashSet<string> concepts;
+        HashSet<string> fringe;
 
-        public KnowledgeState(Graph hasseGraph, List<string> concepts)
+        public KnowledgeState(Graph hasseGraph, HashSet<string> concepts)
         {
             this.hesseGraph = hasseGraph;
             this.concepts = concepts;
             this.fringe = generateFringe();
         }
 
-        public List<string> Concepts
+        public HashSet<string> Concepts
         {
             get { return concepts; }
         }
 
-        public List<string> Fringe
+        public HashSet<string> Fringe
         {
             get { return fringe; }
         }
 
-        private List<string> generateFringe()
+        private HashSet<string> generateFringe()
         {
-            List<String> fringeSet = new List<string>(hesseGraph.Nodes);
+            HashSet<String> fringeSet = new HashSet<string>(hesseGraph.Nodes);
             foreach (GraphLink link in hesseGraph.Links)
             {
                 if (!concepts.Contains(link.Source))
@@ -48,12 +48,12 @@ namespace Service
         public class Builder
         {
             Graph hesseGraph;
-            List<string> concepts;
+            HashSet<string> concepts;
 
             public Builder()
             {
                 hesseGraph = new Graph();
-                concepts = new List<string>();
+                concepts = new HashSet<string>();
             }
 
             public KnowledgeState.Builder withGraph(Graph graph){

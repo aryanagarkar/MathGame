@@ -23,7 +23,7 @@ namespace Service.tests
                                         .withConcept("B")
                                         .build();
 
-            List<string> fringe = knowledgeState.Fringe;
+            HashSet<string> fringe = knowledgeState.Fringe;
 
             //Expectations
 

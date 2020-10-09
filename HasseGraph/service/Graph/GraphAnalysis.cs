@@ -8,7 +8,7 @@ namespace Service.graph
     {
         readonly Graph graph;
 
-        List<GraphNode> sortedNodes;
+        readonly List<GraphNode> sortedNodes;
 
         bool hesse;
 
@@ -19,8 +19,8 @@ namespace Service.graph
             this.hesse = isHesse();
         }
 
-        public IList<GraphNode> SortedNodes{
-            get{return sortedNodes.AsReadOnly();}
+        public List<GraphNode> SortedNodes{
+            get{return sortedNodes;}
         }
 
         public bool IsHesse{
