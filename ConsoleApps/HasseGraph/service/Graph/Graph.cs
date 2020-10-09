@@ -1,5 +1,4 @@
-﻿using Service.Util;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System;
 
@@ -7,10 +6,10 @@ namespace Service.graph
 {
     public class Graph
     {
-        readonly MDictionary<string, GraphNode> idNodeMap;
+        readonly Dictionary<string, GraphNode> idNodeMap;
         readonly List<GraphLink> links = new List<GraphLink>();
 
-        Graph(MDictionary<string, GraphNode> idNodeMap, List<GraphLink> links)
+        Graph(Dictionary<string, GraphNode> idNodeMap, List<GraphLink> links)
         {
             this.idNodeMap = idNodeMap;
             this.links = links;
@@ -20,7 +19,7 @@ namespace Service.graph
 
         public IDictionary<string, GraphNode> IdNodeMap
         {
-            get { return idNodeMap.getReadOnlyDictionary(); }
+            get { return idNodeMap; }
         }
 
         public IList<String> Nodes
@@ -49,7 +48,7 @@ namespace Service.graph
 
         public class Builder
         {
-            MDictionary<string, GraphNode.Builder> idNodeMap = new MDictionary<string, GraphNode.Builder>();
+            Dictionary<string, GraphNode.Builder> idNodeMap = new Dictionary<string, GraphNode.Builder>();
             List<GraphLink> links = new List<GraphLink>();
 
             public Builder() { }
@@ -76,7 +75,7 @@ namespace Service.graph
             public Graph build()
             {
                 return new Graph(
-                    new MDictionary<string, GraphNode>(idNodeMap.ToDictionary(
+                    new Dictionary<string, GraphNode>(idNodeMap.ToDictionary(
                         kvp1 => kvp1.Key, kvp2 => kvp2.Value.build())),
                     links);
             }
