@@ -10,8 +10,6 @@ Link to install visual studio code: https://visualstudio.microsoft.com/downloads
 
 Download the zip file. Right-click on the console app folder and open with visual studio code. 
 
-If any pop-ups to restore unresolved depencies show up, click restore. 
-
 **Commands to run**
 
 Run - ```dotnet run```
