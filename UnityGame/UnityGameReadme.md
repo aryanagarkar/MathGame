@@ -1,21 +1,27 @@
-**This readme is for games made in the unity development platform.**
+**This readme is for games made in the unity development platform and has been tested on linux.**
 
 **Prerequisites:**
 
-You need to have the unity editor installed. 
+You need the unity editor and visual studio code. 
 
-Unity is supported on these platforms : Android, iOS, Linux, macOs, windows, webgl and unity web player
+Unity download link: https://unity3d.com/get-unity/download 
 
-Unity download link: https://unity3d.com/get-unity/download  
+Visual studio code download link and instructions: https://code.visualstudio.com/docs/setup/linux
+ 
 
-You can directly install unity or install it from unity hub. 
+**Installing unity on linux**
 
-You also need visual studio or visual studio code. When you choose the modules to install with unity, 
-you should see an option to install the ide.
+* click on download unity hub on the website. This will download an appimage
 
-Here is the url if you want to install the ide manually or you do not see the option:
+* run ```chmod a+x 'name of appimage'```
 
-Visual studio or visual studio code: https://visualstudio.microsoft.com/downloads/
+* click on the appimage to run it
+
+* go to installs on unity hub
+
+* select add
+
+* follow the prompts 
 
 
 
@@ -23,6 +29,6 @@ Visual studio or visual studio code: https://visualstudio.microsoft.com/download
 
 Download the zip file. Right-click on UnityGame and open it with unity. 
 
-If you get a pop up, click continue. The game will open up in Unity. 
+If you get a pop up, click continue. 
 
 Click the play button on the top to run it!
