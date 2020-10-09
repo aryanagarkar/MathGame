@@ -4,7 +4,7 @@
 
 You need to have the unity editor installed. 
 
-Unity is supported on these platforms : Android, iOS, Linux, macOs and windows, webgl and unity web player
+Unity is supported on these platforms : Android, iOS, Linux, macOs, windows, webgl and unity web player
 
 Unity download link: https://unity3d.com/get-unity/download  
 
