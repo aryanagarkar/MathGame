@@ -4,14 +4,17 @@
 
 You need to have visual studio code installed. 
 
-Link to install visual studio code: https://visualstudio.microsoft.com/downloads/  
+Visual studio code download link and instructions: https://code.visualstudio.com/docs/setup/linux  
 
 **After installing**
 
-Download the zip file. Right-click on the console app folder and open with visual studio code. 
+Download the zip file. All console apps are within this folder. Right-click on a folder and open with visual studio code. 
 
-**Commands to run**
 
-Run - ```dotnet run```
+**Running and testing**
 
-Test - ```dotnet test```
+* go to terminal -> new terminal in visual studio code
+
+* run - ```dotnet run```
+
+* test - ```dotnet test```
