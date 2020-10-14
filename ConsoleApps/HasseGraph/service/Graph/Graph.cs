@@ -22,11 +22,6 @@ namespace Service.graph
             get { return idNodeMap; }
         }
 
-        public IList<String> Nodes
-        {
-            get { return idNodeMap.Keys.ToList().AsReadOnly(); }
-        }
-
         public IList<GraphLink> Links
         {
             get { return links.AsReadOnly(); }
@@ -35,8 +30,8 @@ namespace Service.graph
         public override bool Equals(object obj)
         {
             Graph graph = (Graph)obj;
-            HashSet<string> thisNodes = new HashSet<string>(Nodes);
-            HashSet<string> otherNodes = new HashSet<string>(graph.Nodes);
+            HashSet<string> thisNodes = new HashSet<string>(idNodeMap.Keys.ToHashSet());
+            HashSet<string> otherNodes = new HashSet<string>(graph.idNodeMap.Keys);
 
             return thisNodes.SetEquals(otherNodes);
         }
@@ -48,10 +43,13 @@ namespace Service.graph
 
         public class Builder
         {
-            Dictionary<string, GraphNode.Builder> idNodeMap = new Dictionary<string, GraphNode.Builder>();
-            List<GraphLink> links = new List<GraphLink>();
+            Dictionary<string, GraphNode.Builder> idNodeMap;
+            List<GraphLink> links;
 
-            public Builder() { }
+            public Builder() {
+                this.idNodeMap = new Dictionary<string, GraphNode.Builder>();
+                this.links = new List<GraphLink>();
+             }
 
             public Builder addLink(string sourceId, string targetId)
             {
@@ -66,8 +64,8 @@ namespace Service.graph
                 GraphNode.Builder sourceNode = addOrGetNode(sourceId);
                 GraphNode.Builder targetNode = addOrGetNode(targetId);
                 links.Add(new GraphLink.Builder().withSource(sourceId).withTarget(targetId).build());
-                sourceNode.withOutgoingLink(targetId);
-                targetNode.withIncomingLink(sourceId);
+                sourceNode = sourceNode.withOutgoingLink(targetId);
+                targetNode = targetNode.withIncomingLink(sourceId);
 
                 return this;
             }

@@ -10,7 +10,7 @@ namespace Service.tests
     public class GraphAnalysisTests
     {
         [Test]
-        public void TestTopologicalSort_NoCycles()
+        public void testTopologicalSort_NoCycles()
         {
             //Setup
             Graph graph = new Graph.Builder()
@@ -34,7 +34,7 @@ namespace Service.tests
         }
 
         [Test]
-        public void TestTopologicalSort_OneCycle()
+        public void testTopologicalSort_OneCycle()
         {
             //Setup
 
@@ -61,7 +61,7 @@ namespace Service.tests
         }
 
         [Test]
-        public void TestTopologicalSort_TwoConnectedSubgraphsWithCycles()
+        public void testTopologicalSort_TwoConnectedSubgraphsWithCycles()
         {
             //Setup
 
@@ -90,7 +90,7 @@ namespace Service.tests
         }
 
         [Test]
-        public void TestIsHesse()
+        public void testIsHesse()
         {
             //Setup
             Graph graph = new Graph.Builder()
@@ -108,7 +108,7 @@ namespace Service.tests
         }
 
          [Test]
-        public void TestIsNotHesse()
+        public void testIsNotHesse()
         {
             //Setup
             Graph graph = new Graph.Builder()

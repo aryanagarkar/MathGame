@@ -105,7 +105,7 @@ namespace Service.graph
         private HashSet<GraphNode> getSetOfStartNodes()
         {
             HashSet<GraphNode> startNodes = new HashSet<GraphNode>();
-            foreach (string node in graph.Nodes)
+            foreach (string node in graph.IdNodeMap.Keys)
             {
                 if (!graph.IdNodeMap[node].IncomingLinks.Any())
                 {

@@ -7,7 +7,7 @@ namespace Service.tests
     public class GraphNodeBuilderTests
     {
         [Test]
-        public void TestNodeID(){
+        public void testNodeID(){
             //Setup
             GraphNode node = createDefaultGraphNode();
 
@@ -18,7 +18,7 @@ namespace Service.tests
         }
 
         [Test]
-        public void TestNodeLinks(){
+        public void testNodeLinks(){
             //Setup
             GraphNode node = createDefaultGraphNode();
 
@@ -33,7 +33,7 @@ namespace Service.tests
 
         private GraphNode createDefaultGraphNode()
         {
-            GraphNode Node = new GraphNode.Builder()
+            GraphNode node = new GraphNode.Builder()
                     .withID("A")
                     .withIncomingLink("C")
                     .withIncomingLink("D")
@@ -41,7 +41,7 @@ namespace Service.tests
                     .withOutgoingLink("E")
                     .build();
 
-            return Node;
+            return node;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Service.tests
     public class GraphBuilderTests
     {
         [Test]
-        public void TestNumOfNodes()
+        public void testNumOfNodes()
         {
             //Setup
             Graph graph = createDefaultGraph();
@@ -18,11 +18,11 @@ namespace Service.tests
 
 
             //Test and assert
-            Assert.AreEqual(numNodes, graph.Nodes.Count);
+            Assert.AreEqual(numNodes, graph.IdNodeMap.Keys.Count);
         }
 
         [Test]
-        public void TestGraph_AllNodesAndLinksPresent()
+        public void testGraph_AllNodesAndLinksPresent()
         {
             //Setup
             Graph graph = createDefaultGraph();
@@ -43,7 +43,7 @@ namespace Service.tests
         }
 
         [Test]
-        public void TestGraph_AllLinksPresent()
+        public void testGraph_AllLinksPresent()
         {
             //Setup
             Graph graph = createDefaultGraph();
@@ -61,7 +61,7 @@ namespace Service.tests
         }
 
         [Test]
-        public void TestGraph_DuplicateLinkError()
+        public void testGraph_DuplicateLinkError()
         {
             try{
                 Graph graph = new Graph.Builder()
