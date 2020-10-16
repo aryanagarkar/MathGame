@@ -19,6 +19,7 @@ namespace Service.tests
                     .addLink("C", "D")
                     .addLink("D", "E")
                     .build();
+
             GraphAnalysis analysis = new GraphAnalysis(graph);
 
             //Expectations
@@ -37,12 +38,7 @@ namespace Service.tests
         public void testTopologicalSort_OneCycle()
         {
             //Setup
-
-            //Expectations
-
-            //Test and assert
-            try{
-                Graph graph = new Graph.Builder()
+             Graph graph = new Graph.Builder()
                     .addLink("A", "B")
                     .addLink("B", "C")
                     .addLink("C", "A")
@@ -50,26 +46,19 @@ namespace Service.tests
                     .addLink("A", "C")
                     .build();
 
-
             GraphAnalysis analysis = new GraphAnalysis(graph);
-            IList<GraphNode> sortedNodes = analysis.SortedNodes;
-            }
 
-            catch(Exception e){
-                 Assert.IsTrue(e.Message.Equals("Graph is cyclic"));
-            }
+            //Expectations
+
+            //Test and assert
+            Assert.IsTrue(analysis.isCyclic());
         }
 
         [Test]
         public void testTopologicalSort_TwoConnectedSubgraphsWithCycles()
         {
             //Setup
-
-            //Expectations
-
-            //Test and assert
-            try{
-                Graph graph = new Graph.Builder()
+            Graph graph = new Graph.Builder()
                     .addLink("A", "B")
                     .addLink("B", "C")
                     .addLink("C", "A")
@@ -81,12 +70,11 @@ namespace Service.tests
 
 
             GraphAnalysis analysis = new GraphAnalysis(graph);
-            IList<GraphNode> sortedNodes = analysis.SortedNodes;
-            }
 
-            catch(Exception e){
-                 Assert.IsTrue(e.Message.Equals("Graph is cyclic"));
-            }
+            //Expectations
+
+            //Test and assert
+            Assert.IsTrue(analysis.isCyclic());
         }
 
         [Test]
@@ -104,7 +92,7 @@ namespace Service.tests
             //Expectations
 
             //Test and assert
-            Assert.IsTrue(analysis.IsHesse);
+            Assert.IsTrue(analysis.isHesse());
         }
 
          [Test]
@@ -121,7 +109,7 @@ namespace Service.tests
             //Expectations
 
             //Test and assert
-            Assert.IsFalse(analysis.IsHesse);
+            Assert.IsFalse(analysis.isHesse());
         }
     }
 }

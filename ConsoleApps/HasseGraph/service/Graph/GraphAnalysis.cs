@@ -10,21 +10,14 @@ namespace Service.graph
 
         readonly List<GraphNode> sortedNodes;
 
-        bool hesse;
-
         public GraphAnalysis(Graph graph)
         {
             this.graph = graph;
             this.sortedNodes = topologicalSort();
-            this.hesse = isHesse();
         }
 
         public List<GraphNode> SortedNodes{
             get{return sortedNodes;}
-        }
-
-        public bool IsHesse{
-            get{return hesse;}
         }
 
         public List<GraphNode> topologicalSort()
@@ -35,7 +28,7 @@ namespace Service.graph
 
             if (!startNodes.Any())
             {
-                throw new Exception("Graph is cyclic");
+                return null;
             }
 
             while (startNodes.Any())
@@ -63,12 +56,19 @@ namespace Service.graph
             }
             if (links.Any())
             {
-                throw new Exception("Graph is cyclic");
+                return null;
             }
             else
             {
                 return sortedNodes;
             }
+        }
+
+        public bool isCyclic(){
+            if(sortedNodes == null){
+                return true;
+            }
+            return false;
         }
 
         public Boolean isHesse()
