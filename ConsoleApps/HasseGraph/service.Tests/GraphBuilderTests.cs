@@ -16,7 +16,6 @@ namespace Service.tests
             //Expectations
             int numNodes = 4;
 
-
             //Test and assert
             Assert.AreEqual(numNodes, graph.IdNodeMap.Keys.Count);
         }
@@ -63,15 +62,15 @@ namespace Service.tests
         [Test]
         public void testGraph_DuplicateLinkError()
         {
-            try{
-                Graph graph = new Graph.Builder()
+            //Setup
+            Graph graph = new Graph.Builder()
                 .addLink("B", "C")
                 .addLink("B", "C")
                 .build();
-            }
-            catch(InvalidOperationException e){
-                Assert.IsTrue(e.Message.Contains("Cannot add duplicate node"));
-            }
+
+            Assert.IsTrue(graph.Links.Count == 1);
+            Assert.IsTrue(graph.Links[0].Source == "B");
+            Assert.IsTrue(graph.Links[0].Target == "C");
         }
 
         private Graph createDefaultGraph()

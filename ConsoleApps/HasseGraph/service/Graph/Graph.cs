@@ -15,7 +15,7 @@ namespace Service.graph
             this.links = links;
         }
 
-        public Graph(){}
+        public Graph() { }
 
         public IDictionary<string, GraphNode> IdNodeMap
         {
@@ -46,27 +46,32 @@ namespace Service.graph
             Dictionary<string, GraphNode.Builder> idNodeMap;
             List<GraphLink> links;
 
-            public Builder() {
+            public Builder()
+            {
                 this.idNodeMap = new Dictionary<string, GraphNode.Builder>();
                 this.links = new List<GraphLink>();
-             }
+            }
 
             public Builder addLink(string sourceId, string targetId)
             {
+                bool containsLink = false;
                 foreach (GraphLink link in links)
                 {
                     if (link.Source.Equals(sourceId) && link.Target.Equals(targetId))
                     {
-                        throw new InvalidOperationException("Cannot add duplicate node");
+                        containsLink = true;
                     }
                 }
-                
-                GraphNode.Builder sourceNode = addOrGetNode(sourceId);
-                GraphNode.Builder targetNode = addOrGetNode(targetId);
-                links.Add(new GraphLink.Builder().withSource(sourceId).withTarget(targetId).build());
-                sourceNode = sourceNode.withOutgoingLink(targetId);
-                targetNode = targetNode.withIncomingLink(sourceId);
 
+                if (containsLink == false)
+                {
+                    GraphNode.Builder sourceNode = addOrGetNode(sourceId);
+                    GraphNode.Builder targetNode = addOrGetNode(targetId);
+                    links.Add(new GraphLink.Builder().withSource(sourceId).withTarget(targetId).build());
+                    sourceNode = sourceNode.withOutgoingLink(targetId);
+                    targetNode = targetNode.withIncomingLink(sourceId);
+
+                }
                 return this;
             }
 

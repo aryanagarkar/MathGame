@@ -87,6 +87,7 @@ namespace Service.tests
                     .addLink("B", "D")
                     .addLink("C", "E")
                     .build();
+                    
             GraphAnalysis analysis = new GraphAnalysis(graph);
 
             //Expectations
@@ -95,7 +96,7 @@ namespace Service.tests
             Assert.IsTrue(analysis.isHesse());
         }
 
-         [Test]
+        [Test]
         public void testIsNotHesse()
         {
             //Setup
