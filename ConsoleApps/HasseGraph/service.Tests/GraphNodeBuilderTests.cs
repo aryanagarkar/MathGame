@@ -9,36 +9,36 @@ namespace Service.tests
         [Test]
         public void testNodeID(){
             //Setup
-            GraphNode node = createDefaultGraphNode();
+            GraphNode<Concept> node = createDefaultGraphNode();
 
             //Expectations
 
             //Test and assert
-            Assert.AreEqual("A", node.ID);
+            Assert.AreEqual(new Concept("A"), node.ID);
         }
 
         [Test]
         public void testNodeLinks(){
             //Setup
-            GraphNode node = createDefaultGraphNode();
+            GraphNode<Concept> node = createDefaultGraphNode();
 
             //Expectations
 
             //Test and assert
-            Assert.IsTrue(node.IncomingLinks.Contains("C"));
-            Assert.IsTrue(node.IncomingLinks.Contains("D"));
-            Assert.IsTrue(node.OutgoingLinks.Contains("B"));
-            Assert.IsTrue(node.OutgoingLinks.Contains("E"));
+            Assert.IsTrue(node.IncomingLinks.Contains(new Concept("C")));
+            Assert.IsTrue(node.IncomingLinks.Contains(new Concept("D")));
+            Assert.IsTrue(node.OutgoingLinks.Contains(new Concept("B")));
+            Assert.IsTrue(node.OutgoingLinks.Contains(new Concept("E")));
         }
 
-        private GraphNode createDefaultGraphNode()
+        private GraphNode<Concept> createDefaultGraphNode()
         {
-            GraphNode node = new GraphNode.Builder()
-                    .withID("A")
-                    .withIncomingLink("C")
-                    .withIncomingLink("D")
-                    .withOutgoingLink("B")
-                    .withOutgoingLink("E")
+            GraphNode<Concept> node = new GraphNode<Concept>.Builder()
+                    .withID(new Concept("A"))
+                    .withIncomingLink(new Concept("C"))
+                    .withIncomingLink(new Concept("D"))
+                    .withOutgoingLink(new Concept("B"))
+                    .withOutgoingLink(new Concept("E"))
                     .build();
 
             return node;

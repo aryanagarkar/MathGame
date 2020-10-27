@@ -1,31 +1,31 @@
 ﻿namespace Service.graph
 {
-    public class GraphLink
+    public class GraphLink<T>
     {
-        Graph graph;
-        string source;
-        string target;
+        Graph<T> graph;
+        T source;
+        T target;
 
-        GraphLink(Graph graph, string source, string target)
+        GraphLink(Graph<T> graph, T source, T target)
         {
             this.graph = graph;
             this.source = source;
             this.target = target;
         }
 
-        public string Source
-        { 
+        public T Source
+        {
             get { return source; }
         }
 
-        public string Target
+        public T Target
         {
             get { return target; }
         }
 
         public override bool Equals(object obj)
         {
-            GraphLink link = (GraphLink)obj;
+            GraphLink<T> link = (GraphLink<T>)obj;
             return source.Equals(link.Source) && target.Equals(link.target);
         }
 
@@ -35,34 +35,34 @@
         }
         public class Builder
         {
-            Graph graph;
-            string source;
-            string target;
+            Graph<T> graph;
+            T source;
+            T target;
 
             public Builder()
             {
             }
 
-            public Builder withGraph(Graph graph)
+            public Builder withGraph(Graph<T> graph)
             {
                 this.graph = graph;
                 return this;
             }
-            public Builder withSource(string source)
+            public Builder withSource(T source)
             {
                 this.source = source;
                 return this;
             }
 
-            public Builder withTarget(string target)
+            public Builder withTarget(T target)
             {
                 this.target = target;
                 return this;
             }
 
-            public GraphLink build()
+            public GraphLink<T> build()
             {
-                return new GraphLink(graph, source, target);
+                return new GraphLink<T>(graph, source, target);
             }
         }
     }

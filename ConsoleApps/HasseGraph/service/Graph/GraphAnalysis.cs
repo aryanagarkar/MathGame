@@ -4,27 +4,27 @@ using System;
 
 namespace Service.graph
 {
-    public class GraphAnalysis
+    public class GraphAnalysis<T>
     {
-        readonly Graph graph;
+        readonly Graph<T> graph;
 
-        readonly List<GraphNode> sortedNodes;
+        readonly List<GraphNode<T>> sortedNodes;
 
-        public GraphAnalysis(Graph graph)
+        public GraphAnalysis(Graph<T> graph)
         {
             this.graph = graph;
             this.sortedNodes = topologicalSort();
         }
 
-        public List<GraphNode> SortedNodes{
+        public List<GraphNode<T>> SortedNodes{
             get{return sortedNodes;}
         }
 
-        public List<GraphNode> topologicalSort()
+        public List<GraphNode<T>> topologicalSort()
         {
-            List<GraphNode> sortedNodes = new List<GraphNode>();
-            HashSet<GraphNode> startNodes = getSetOfStartNodes();
-            List<GraphLink> links = new List<GraphLink>(graph.Links);
+            List<GraphNode<T>> sortedNodes = new List<GraphNode<T>>();
+            HashSet<GraphNode<T>> startNodes = getSetOfStartNodes();
+            List<GraphLink<T>> links = new List<GraphLink<T>>(graph.Links);
 
             if (!startNodes.Any())
             {
@@ -33,24 +33,24 @@ namespace Service.graph
 
             while (startNodes.Any())
             {
-                GraphNode node = startNodes.ElementAt(startNodes.Count - 1);
+                GraphNode<T> node = startNodes.ElementAt(startNodes.Count - 1);
                 startNodes.Remove(node);
                 sortedNodes.Add(node);
 
-                foreach (string s in node.OutgoingLinks)
+                foreach (T c in node.OutgoingLinks)
                 {
-                    List<string> inLinks = new List<string>(graph.IdNodeMap[s].IncomingLinks);
+                    List<T> inLinks = new List<T>(graph.IdNodeMap[c].IncomingLinks);
                     inLinks.Remove(node.ID);
                     for (int i = 0; i < links.Count; i++)
                     {
-                        if (links[i].Source.Equals(node.ID) && links[i].Target.Equals(s))
+                        if (links[i].Source.Equals(node.ID) && links[i].Target.Equals(c))
                         {
                             links.Remove(links[i]);
                         }
                     }
                     if (!inLinks.Any())
                     {
-                        startNodes.Add(graph.IdNodeMap[s]);
+                        startNodes.Add(graph.IdNodeMap[c]);
                     }
                 }
             }
@@ -73,8 +73,8 @@ namespace Service.graph
 
         public Boolean isHesse()
         {
-            HashSet<GraphNode> roots = getSetOfStartNodes();
-            foreach (GraphNode rootNode in roots)
+            HashSet<GraphNode<T>> roots = getSetOfStartNodes();
+            foreach (GraphNode<T> rootNode in roots)
             {
                 if (!isReduced(rootNode))
                 {
@@ -84,16 +84,16 @@ namespace Service.graph
             return true;
         }
 
-        private Boolean isReduced(GraphNode root)
+        private Boolean isReduced(GraphNode<T> root)
         {
-            List<GraphNode> nodesVisited = new List<GraphNode>();
-            Queue<GraphNode> q = new Queue<GraphNode>();
+            List<GraphNode<T>> nodesVisited = new List<GraphNode<T>>();
+            Queue<GraphNode<T>> q = new Queue<GraphNode<T>>();
             q.Enqueue(root);
             while (q.Any())
             {
-                GraphNode v = q.Dequeue();
-                foreach(string s in v.OutgoingLinks){
-                    GraphNode w = graph.IdNodeMap[s];
+                GraphNode<T> v = q.Dequeue();
+                foreach(T c in v.OutgoingLinks){
+                    GraphNode<T> w = graph.IdNodeMap[c];
                     if(nodesVisited.Contains(w)){return false;}
                     nodesVisited.Add(w);
                     q.Enqueue(w);
@@ -102,10 +102,10 @@ namespace Service.graph
             return true;
         }
 
-        private HashSet<GraphNode> getSetOfStartNodes()
+        private HashSet<GraphNode<T>> getSetOfStartNodes()
         {
-            HashSet<GraphNode> startNodes = new HashSet<GraphNode>();
-            foreach (string node in graph.IdNodeMap.Keys)
+            HashSet<GraphNode<T>> startNodes = new HashSet<GraphNode<T>>();
+            foreach (T node in graph.IdNodeMap.Keys)
             {
                 if (!graph.IdNodeMap[node].IncomingLinks.Any())
                 {

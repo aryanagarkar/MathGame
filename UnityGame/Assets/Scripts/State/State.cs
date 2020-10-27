@@ -3,37 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using Questions;
 
-[System.Serializable]
-public class State
+namespace state
 {
-    Topic topic;
-    int difficulty;
-    DisplayTypeEnum displayType;
-
-    public State(Topic topic, int difficulty, DisplayTypeEnum displayType)
+    [System.Serializable]
+    public class State
     {
-        this.topic = topic;
-        this.difficulty = difficulty;
-        this.displayType = displayType;
-    }
+        Topic topic;
+        int difficulty;
 
-    public Topic Topic
-    {
-        get { return topic; }
-    }
+        public State(Topic topic, int difficulty)
+        {
+            this.topic = topic;
+            this.difficulty = difficulty;
+        }
 
-    public int Difficulty
-    {
-        get { return difficulty; }
-    }
+        public Topic Topic
+        {
+            get { return topic; }
+        }
 
-    public DisplayTypeEnum DisplayType
-    {
-        get { return displayType; }
-    }
+        public int Difficulty
+        {
+            get { return difficulty; }
+        }
 
-    public bool IsEqual(State other)
-    {
-        return (topic == other.topic && difficulty == other.Difficulty && displayType == other.displayType);
+        public bool IsEqual(State other)
+        {
+            return (topic == other.topic && difficulty == other.Difficulty);
+        }
     }
 }

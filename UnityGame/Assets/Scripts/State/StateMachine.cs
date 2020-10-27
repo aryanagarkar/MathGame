@@ -4,76 +4,85 @@ using UnityEngine;
 using Questions;
 using events;
 
-public class StateMachine
+namespace state
 {
-    History hist;
-
-    public StateMachine(History history)
+    public class StateMachine
     {
-        this.hist = history;
-       
-        Topic topic = new Topic(5, QuestionTypeEnum.addition);
-        State startState = new State(topic, 2, DisplayTypeEnum.circleDisplay);
-        hist.push(startState);
-    }
+        History hist;
 
-
-    public History CurrentHistory
-    {
-        get { return hist; }
-    }
-
-    public State CurrentState{
-        get{return hist.peek();}
-    }
-
-    public State processEvent(EventTypeEnum ev)
-    {
-        State state = null;
-        if (ev == EventTypeEnum.rightAnswerEvent)
+        public StateMachine(History history)
         {
-            state = getNextStateForRightAnswer();
+            this.hist = history;
         }
-        if (ev == EventTypeEnum.wrongAnswerEvent)
-        {
-            state = getNextStateForWrongAnswer();
-        }
-        hist.push(state);
-        return state;
-    }
 
-    private State getNextStateForRightAnswer()
-    {
-        State state = hist.peek();
-        int difficulty = state.Difficulty;
-        int maxDifficulty = state.Topic.MaxDifficulty;
-        State newState = null;
-
-        if (difficulty < maxDifficulty)
+        public StateMachine()
         {
-            newState = new State(state.Topic, difficulty + 1, DisplayTypeEnum.circleDisplay);
+            this.hist = new History();
+            Topic startTopic = new Topic(5, QuestionTypeEnum.addition);
+            State startState = new State(startTopic, 2);
+            hist.push(startState);
         }
-        if(difficulty == maxDifficulty){
-            newState = state;
-        }
-        return newState;
-    }
 
-    private State getNextStateForWrongAnswer()
-    {
-        State state = hist.peek();
-        int difficulty = state.Difficulty;
-        int maxDifficulty = state.Topic.MaxDifficulty;
-        State newState = null;
 
-        if (difficulty != 1)
+        public History CurrentHistory
         {
-            newState = new State(state.Topic, difficulty - 1, DisplayTypeEnum.circleDisplay);
+            get { return hist; }
         }
-        else
+
+        public State CurrentState
         {
-            newState = state;
+            get { return hist.peek(); }
         }
-        return newState;
+
+        public State processEvent(EventTypeEnum ev)
+        {
+            State state = null;
+            if (ev == EventTypeEnum.rightAnswerEvent)
+            {
+                state = getNextStateForRightAnswer();
+            }
+            if (ev == EventTypeEnum.wrongAnswerEvent)
+            {
+                state = getNextStateForWrongAnswer();
+            }
+            hist.push(state);
+            return state;
+        }
+
+        private State getNextStateForRightAnswer()
+        {
+            State state = hist.peek();
+            int difficulty = state.Difficulty;
+            int maxDifficulty = state.Topic.MaxDifficulty;
+            State newState = null;
+
+            if (difficulty < maxDifficulty)
+            {
+                newState = new State(state.Topic, difficulty + 1);
+            }
+            if (difficulty == maxDifficulty)
+            {
+                newState = state;
+            }
+            return newState;
+        }
+
+        private State getNextStateForWrongAnswer()
+        {
+            State state = hist.peek();
+            int difficulty = state.Difficulty;
+            int maxDifficulty = state.Topic.MaxDifficulty;
+            State newState = null;
+
+            if (difficulty != 1)
+            {
+                newState = new State(state.Topic, difficulty - 1);
+            }
+            else
+            {
+                newState = state;
+            }
+            return newState;
+        }
     }
 }

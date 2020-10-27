@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DisplayTypeEnum
+namespace Renderers
 {
-    circleDisplay
+    public enum DisplayTypeEnum
+    {
+        circleDisplay
+    }
 }

@@ -3,49 +3,50 @@ using System;
 
 namespace Service.graph
 {
-    public class GraphNode
+    public class GraphNode<T>
     {
-        string id;
-        readonly List<string> incomingLinks;
-        readonly List<string> outgoingLinks;
+        T id;
+        readonly List<T> incomingLinks;
+        readonly List<T> outgoingLinks;
 
-        readonly Graph graph;
+        readonly Graph<T> graph;
 
-        GraphNode(Graph graph, string id, List<string> incoming, List<string> outgoing)
+        GraphNode(Graph<T> graph, T id, List<T> incoming, List<T> outgoing)
         {
             this.graph = graph;
             this.id = id;
-            incomingLinks = incoming;
-            outgoingLinks = outgoing;
+            this.incomingLinks = incoming;
+            this.outgoingLinks = outgoing;
         }
 
-        public Graph Graph
+        public Graph<T> Graph
         {
             get { return graph; }
         }
 
-        public string ID
-        {
-            get { return id; }
-        }
-        public IList<string> IncomingLinks
+        public IList<T> IncomingLinks
         {
             get { return incomingLinks; }
         }
 
-        public IList<string> OutgoingLinks
+        public IList<T> OutgoingLinks
         {
             get { return outgoingLinks; }
         }
 
+        public T ID
+        {
+            get { return id; }
+        }
+
         public override bool Equals(object obj)
         {
-            GraphNode node = (GraphNode)obj;
-            HashSet<String> thisIncomingLinkSet = new HashSet<string>(incomingLinks);
-            HashSet<String> thisOutgoingLinkSet = new HashSet<string>(outgoingLinks);
-            HashSet<String> otherIncomingLinkSet = new HashSet<string>(node.incomingLinks);
-            HashSet<String> otherOutgoingLinkSet = new HashSet<string>(node.outgoingLinks);
-            return id == node.ID
+            GraphNode<T> node = (GraphNode<T>)obj;
+            HashSet<T> thisIncomingLinkSet = new HashSet<T>(incomingLinks);
+            HashSet<T> thisOutgoingLinkSet = new HashSet<T>(outgoingLinks);
+            HashSet<T> otherIncomingLinkSet = new HashSet<T>(node.incomingLinks);
+            HashSet<T> otherOutgoingLinkSet = new HashSet<T>(node.outgoingLinks);
+            return id.Equals(node.ID)
                 && thisIncomingLinkSet.SetEquals(
                     otherIncomingLinkSet)
                 && thisOutgoingLinkSet.SetEquals(
@@ -60,44 +61,46 @@ namespace Service.graph
 
         public class Builder
         {
-            private Graph graph;
-            string id;
-            readonly List<string> incomingLinks;
-            readonly List<string> outgoingLinks;
+            private Graph<T> graph;
+            T id;
+            readonly List<T> incomingLinks;
+            readonly List<T> outgoingLinks;
 
             public Builder()
             {
-                incomingLinks = new List<string>();
-                outgoingLinks = new List<string>();
+                incomingLinks = new List<T>();
+                outgoingLinks = new List<T>();
             }
 
-            public Builder withGraph(Graph graph)
+            public Builder withGraph(Graph<T> graph)
             {
                 this.graph = graph;
                 return this;
             }
-            
-            public Builder withID(string id)
-            {
-                this.id = id;
-                return this;
-            }
 
-            public Builder withIncomingLink(string node)
+            public Builder withIncomingLink(T node)
             {
                 this.incomingLinks.Add(node);
                 return this;
             }
 
-            public Builder withOutgoingLink(string node)
+            public Builder withOutgoingLink(T node)
             {
                 this.outgoingLinks.Add(node);
                 return this;
             }
 
-            public GraphNode build()
+
+            public Builder withID(T id)
             {
-                return new GraphNode(graph, id, incomingLinks, outgoingLinks);
+                this.id = id;
+                return this;
+            }
+
+
+            public GraphNode<T> build()
+            {
+                return new GraphNode<T>(graph, id, incomingLinks, outgoingLinks);
             }
         }
     }

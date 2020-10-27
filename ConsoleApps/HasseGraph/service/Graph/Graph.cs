@@ -4,12 +4,12 @@ using System;
 
 namespace Service.graph
 {
-    public class Graph
+    public class Graph<T>
     {
-        readonly Dictionary<string, GraphNode> idNodeMap;
-        readonly List<GraphLink> links = new List<GraphLink>();
+        readonly Dictionary<T, GraphNode<T>> idNodeMap;
+        readonly List<GraphLink<T>> links = new List<GraphLink<T>>();
 
-        Graph(Dictionary<string, GraphNode> idNodeMap, List<GraphLink> links)
+        Graph(Dictionary<T, GraphNode<T>> idNodeMap, List<GraphLink<T>> links)
         {
             this.idNodeMap = idNodeMap;
             this.links = links;
@@ -17,21 +17,27 @@ namespace Service.graph
 
         public Graph() { }
 
-        public IDictionary<string, GraphNode> IdNodeMap
+        public IDictionary<T, GraphNode<T>> IdNodeMap
         {
             get { return idNodeMap; }
         }
 
-        public IList<GraphLink> Links
+        public IList<GraphNode<T>> Nodes
+        {
+            get { return idNodeMap.Values.Distinct().ToList(); }
+        }
+
+
+        public IList<GraphLink<T>> Links
         {
             get { return links.AsReadOnly(); }
         }
 
         public override bool Equals(object obj)
         {
-            Graph graph = (Graph)obj;
-            HashSet<string> thisNodes = new HashSet<string>(idNodeMap.Keys.ToHashSet());
-            HashSet<string> otherNodes = new HashSet<string>(graph.idNodeMap.Keys);
+            Graph<T> graph = (Graph<T>)obj;
+            HashSet<T> thisNodes = new HashSet<T>(idNodeMap.Keys.ToHashSet());
+            HashSet<T> otherNodes = new HashSet<T>(graph.idNodeMap.Keys);
 
             return thisNodes.SetEquals(otherNodes);
         }
@@ -43,21 +49,21 @@ namespace Service.graph
 
         public class Builder
         {
-            Dictionary<string, GraphNode.Builder> idNodeMap;
-            List<GraphLink> links;
+            Dictionary<T, GraphNode<T>.Builder> idNodeMap;
+            List<GraphLink<T>> links;
 
             public Builder()
             {
-                this.idNodeMap = new Dictionary<string, GraphNode.Builder>();
-                this.links = new List<GraphLink>();
+                this.idNodeMap = new Dictionary<T, GraphNode<T>.Builder>();
+                this.links = new List<GraphLink<T>>();
             }
 
-            public Builder addLink(string sourceId, string targetId)
+            public Builder addLink(T source, T target)
             {
                 bool containsLink = false;
-                foreach (GraphLink link in links)
+                foreach (GraphLink<T> link in links)
                 {
-                    if (link.Source.Equals(sourceId) && link.Target.Equals(targetId))
+                    if (link.Source.Equals(source) && link.Target.Equals(target))
                     {
                         containsLink = true;
                     }
@@ -65,32 +71,45 @@ namespace Service.graph
 
                 if (containsLink == false)
                 {
-                    GraphNode.Builder sourceNode = addOrGetNode(sourceId);
-                    GraphNode.Builder targetNode = addOrGetNode(targetId);
-                    links.Add(new GraphLink.Builder().withSource(sourceId).withTarget(targetId).build());
-                    sourceNode = sourceNode.withOutgoingLink(targetId);
-                    targetNode = targetNode.withIncomingLink(sourceId);
+                    GraphNode<T>.Builder sourceNode = addOrGetNode(source);
+                    GraphNode<T>.Builder targetNode = addOrGetNode(target);
+                    links.Add(new GraphLink<T>.Builder().withSource(source).withTarget(target).build());
+                    sourceNode = sourceNode.withOutgoingLink(target);
+                    targetNode = targetNode.withIncomingLink(source);
 
                 }
                 return this;
             }
 
-            public Graph build()
+            public Graph<T> build()
             {
-                return new Graph(
-                    new Dictionary<string, GraphNode>(idNodeMap.ToDictionary(
+                return new Graph<T>(
+                    new Dictionary<T, GraphNode<T>>(idNodeMap.ToDictionary(
                         kvp1 => kvp1.Key, kvp2 => kvp2.Value.build())),
                     links);
             }
 
-            private GraphNode.Builder addOrGetNode(string id)
+            private GraphNode<T>.Builder addOrGetNode(T id)
             {
-                if (!idNodeMap.ContainsKey(id))
-                {
-                    GraphNode.Builder node = new GraphNode.Builder().withID(id);
-                    idNodeMap.Add(id, node);
+                bool contains = false;
+                foreach(T k in idNodeMap.Keys){
+                    if(k.Equals(id)){
+                        contains = true;
+                    }
                 }
-                return idNodeMap[id];
+                if (contains == false)
+                {
+                    GraphNode<T>.Builder node = new GraphNode<T>.Builder().withID(id);
+                    idNodeMap.Add(id, node);
+                    return node;
+                }
+                foreach(T key in idNodeMap.Keys){
+                    if(key.Equals(id)){
+                        GraphNode<T>.Builder node = idNodeMap[key];
+                        return node;
+                    }
+                }
+                return null;
             }
         }
     }

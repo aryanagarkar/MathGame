@@ -13,40 +13,51 @@ namespace Service.tests
         public void testTopologicalSort_NoCycles()
         {
             //Setup
-            Graph graph = new Graph.Builder()
-                    .addLink("A", "B")
-                    .addLink("B", "C")
-                    .addLink("C", "D")
-                    .addLink("D", "E")
+            Concept conceptA = new Concept("A");
+            Concept conceeptB = new Concept("B");
+            Concept conceptC = new Concept("C");
+            Concept conceptD = new Concept("D");
+            Concept conceptE = new Concept("E");
+
+            Graph<Concept> graph = new Graph<Concept>.Builder()
+                    .addLink(conceptA, conceeptB)
+                    .addLink(conceeptB, conceptC)
+                    .addLink(conceptC, conceptD)
+                    .addLink(conceptD, conceptE)
                     .build();
 
-            GraphAnalysis analysis = new GraphAnalysis(graph);
+            GraphAnalysis<Concept> analysis = new GraphAnalysis<Concept>(graph);
 
             //Expectations
-            List<GraphNode> expected = new List<GraphNode>();
-            expected.Add(graph.IdNodeMap["A"]);
-            expected.Add(graph.IdNodeMap["B"]);
-            expected.Add(graph.IdNodeMap["C"]);
-            expected.Add(graph.IdNodeMap["D"]);
-            expected.Add(graph.IdNodeMap["E"]);
+            List<GraphNode<Concept>> expected = new List<GraphNode<Concept>>();
+            expected.Add(graph.IdNodeMap[conceptA]);
+            expected.Add(graph.IdNodeMap[conceeptB]);
+            expected.Add(graph.IdNodeMap[conceptC]);
+            expected.Add(graph.IdNodeMap[conceptD]);
+            expected.Add(graph.IdNodeMap[conceptE]);
 
             //Test and assert
             Assert.IsTrue(analysis.SortedNodes.SequenceEqual(expected));
         }
 
         [Test]
-        public void testTopologicalSort_OneCycle()
+        public void testIsCyclic_OneCycle()
         {
             //Setup
-             Graph graph = new Graph.Builder()
-                    .addLink("A", "B")
-                    .addLink("B", "C")
-                    .addLink("C", "A")
-                    .addLink("C", "D")
-                    .addLink("A", "C")
-                    .build();
+            Concept conceptA = new Concept("A");
+            Concept conceptB = new Concept("B");
+            Concept conceptC = new Concept("C");
+            Concept conceptD = new Concept("D");
 
-            GraphAnalysis analysis = new GraphAnalysis(graph);
+            Graph<Concept> graph = new Graph<Concept>.Builder()
+                   .addLink(conceptA, conceptB)
+                   .addLink(conceptB, conceptC)
+                   .addLink(conceptC, conceptA)
+                   .addLink(conceptC, conceptD)
+                   .addLink(conceptA, conceptC)
+                   .build();
+
+            GraphAnalysis<Concept> analysis = new GraphAnalysis<Concept>(graph);
 
             //Expectations
 
@@ -55,21 +66,28 @@ namespace Service.tests
         }
 
         [Test]
-        public void testTopologicalSort_TwoConnectedSubgraphsWithCycles()
+        public void testIsCyclic_TwoConnectedSubgraphsWithCycles()
         {
             //Setup
-            Graph graph = new Graph.Builder()
-                    .addLink("A", "B")
-                    .addLink("B", "C")
-                    .addLink("C", "A")
-                    .addLink("D", "E")
-                    .addLink("E", "F")
-                    .addLink("F", "D")
-                    .addLink("B", "F")
+            Concept conceptA = new Concept("A");
+            Concept conceptB = new Concept("B");
+            Concept conceptC = new Concept("C");
+            Concept conceptD = new Concept("D");
+            Concept conceptE = new Concept("E");
+            Concept conceptF = new Concept("F");
+
+            Graph<Concept> graph = new Graph<Concept>.Builder()
+                    .addLink(conceptA, conceptB)
+                    .addLink(conceptB, conceptC)
+                    .addLink(conceptC, conceptA)
+                    .addLink(conceptD, conceptE)
+                    .addLink(conceptE, conceptF)
+                    .addLink(conceptF, conceptD)
+                    .addLink(conceptB, conceptF)
                     .build();
 
 
-            GraphAnalysis analysis = new GraphAnalysis(graph);
+            GraphAnalysis<Concept> analysis = new GraphAnalysis<Concept>(graph);
 
             //Expectations
 
@@ -81,14 +99,20 @@ namespace Service.tests
         public void testIsHesse()
         {
             //Setup
-            Graph graph = new Graph.Builder()
-                    .addLink("A", "B")
-                    .addLink("B", "C")
-                    .addLink("B", "D")
-                    .addLink("C", "E")
+            Concept conceptA = new Concept("A");
+            Concept conceptB = new Concept("B");
+            Concept conceptC = new Concept("C");
+            Concept conceptD = new Concept("D");
+            Concept conceptE = new Concept("E");
+
+            Graph<Concept> graph = new Graph<Concept>.Builder()
+                    .addLink(conceptA, conceptB)
+                    .addLink(conceptB, conceptC)
+                    .addLink(conceptB, conceptD)
+                    .addLink(conceptC, conceptE)
                     .build();
-                    
-            GraphAnalysis analysis = new GraphAnalysis(graph);
+
+            GraphAnalysis<Concept> analysis = new GraphAnalysis<Concept>(graph);
 
             //Expectations
 
@@ -100,12 +124,16 @@ namespace Service.tests
         public void testIsNotHesse()
         {
             //Setup
-            Graph graph = new Graph.Builder()
-                    .addLink("A", "B")
-                    .addLink("B", "C")
-                    .addLink("A", "C")
+            Concept conceptA = new Concept("A");
+            Concept conceptB = new Concept("B");
+            Concept conceptC = new Concept("C");
+
+            Graph<Concept> graph = new Graph<Concept>.Builder()
+                    .addLink(conceptA, conceptB)
+                    .addLink(conceptB, conceptC)
+                    .addLink(conceptA, conceptC)
                     .build();
-            GraphAnalysis analysis = new GraphAnalysis(graph);
+            GraphAnalysis<Concept> analysis = new GraphAnalysis<Concept>(graph);
 
             //Expectations
 
