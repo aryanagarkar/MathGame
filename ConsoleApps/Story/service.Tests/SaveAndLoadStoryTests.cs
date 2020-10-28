@@ -10,7 +10,7 @@ namespace service.Tests
         string path = "../../../SampleStoryGraph.json";
 
         [Test]
-        public void testLoadedStoryGraphNodes_equalToExpectedGraph()
+        public void testLoadedStoryGraphNodes_equalToExpectedGraphNodes()
         {
             // Data setup
                         
@@ -26,7 +26,7 @@ namespace service.Tests
         }
 
          [Test]
-        public void testLoadedStoryGraphNodes_NotequalToExpectedGraph()
+        public void testLoadedStoryGraphNodes_NotqualToExpectedGraphNodes()
         {
             // Data setup
                         
@@ -45,8 +45,11 @@ namespace service.Tests
             GraphNode node = new GraphNode();
 
             node.Links = links;
-            node.Character = character.ToString();
-            node.Conversations = conversations;
+            StoryElement element = new StoryElement();
+            element.Character = character.ToString();
+            element.Conversations = conversations;
+            // node.Character = character.ToString();
+            // node.Conversations = conversations;
 
             return node;
         }
