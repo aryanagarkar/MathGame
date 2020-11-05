@@ -11,6 +11,15 @@ namespace Service.graph
             this.concepts = concepts;
         }
 
+        public KnowlegeState(KnowlegeState state){
+            this.concepts = state.concepts;
+        }
+
+        public KnowlegeState()
+        {
+            this.concepts = new HashSet<Concept>();
+        }
+
          public HashSet<Concept> Concepts
         {
             get { return concepts; }
@@ -25,25 +34,6 @@ namespace Service.graph
         public override int GetHashCode()
         {
             return base.GetHashCode();
-        }
-
-        public class Builder
-        {
-            HashSet<Concept> concepts;
-
-            public Builder()
-            {
-                concepts = new HashSet<Concept>();
-            }
-
-            public KnowlegeState.Builder withConcept(Concept c){
-                this.concepts.Add(c);
-                return this;       
-            }
-
-            public KnowlegeState build(){
-                return new KnowlegeState(concepts);
-            }
         }
     }
 }

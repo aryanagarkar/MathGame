@@ -10,7 +10,7 @@ namespace Service.graph
 
         public LearningSpace(HashSet<GraphLink<Concept>> links)
         {
-            currentState = new KnowlegeState.Builder().build();
+            currentState = new KnowlegeState();
             Graph<Concept>.Builder builder = new Graph<Concept>.Builder();
             foreach (GraphLink<Concept> link in links)
             {
@@ -39,7 +39,7 @@ namespace Service.graph
                 }
             }
 
-            KnowlegeState emptyState = new KnowlegeState.Builder().build();
+            KnowlegeState emptyState = new KnowlegeState();
             L.Add(emptyState);
 
             return generatePossibleStates(L, emptyState, np, cs);
@@ -90,20 +90,20 @@ namespace Service.graph
             List<GraphNode<Concept>> T = analysis.SortedNodes;
 
             List<Concept> c = new List<Concept>(cs);
-            KnowlegeState newState = new KnowlegeState.Builder().build();
 
             if (state.Concepts.Count == graph.Nodes.Count) { return L; }
             for (int i = 0; i < cs.Count; i++)
             {
-                foreach (Concept concept in state.Concepts)
+                if (!state.Concepts.Contains(cs[i]))
                 {
-                    newState.Concepts.Add(concept);
-                }
-                newState.Concepts.Add(cs[i]);
-
-                if (!L.Contains(newState))
-                {
-                    L.Add(newState);
+                    KnowlegeState nState = new KnowlegeState();
+                    foreach(Concept con in state.Concepts){
+                        nState.Concepts.Add(con);
+                    }
+                    nState.Concepts.Add(cs[i]);
+                    if(!L.Contains(nState)){
+                         L.Add(nState);
+                    }
                 }
 
                 foreach (Concept y in graph.IdNodeMap[cs[i]].OutgoingLinks)
@@ -125,7 +125,7 @@ namespace Service.graph
                     }
                 }
             }
-            return generatePossibleStates(L, newState, np, c);
+            return generatePossibleStates(L, L[L.Count - 1], np, c);
         }
 
         private List<Concept> generateFringeNodes()
