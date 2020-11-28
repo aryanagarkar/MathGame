@@ -8,6 +8,8 @@ namespace Service.graph
     {
         readonly Graph<T> graph;
 
+        /*A null value means that there is no topological sort for the given graph,
+        i.e. The graph is cyclic*/
         readonly List<GraphNode<T>> sortedNodes;
 
         public GraphAnalysis(Graph<T> graph)
@@ -16,10 +18,13 @@ namespace Service.graph
             this.sortedNodes = topologicalSort();
         }
 
-        public List<GraphNode<T>> SortedNodes{
-            get{return sortedNodes;}
+        public List<GraphNode<T>> SortedNodes
+        {
+            get { return sortedNodes; }
         }
 
+        /*A ordering of graph nodes where for each edge x to y in the graph,
+         x comes before y in the ordering*/
         public List<GraphNode<T>> topologicalSort()
         {
             List<GraphNode<T>> sortedNodes = new List<GraphNode<T>>();
@@ -33,44 +38,39 @@ namespace Service.graph
 
             while (startNodes.Any())
             {
-                GraphNode<T> node = startNodes.ElementAt(startNodes.Count - 1);
+                GraphNode<T> node = startNodes.ElementAt(0);
                 startNodes.Remove(node);
-                sortedNodes.Add(node);
+                if(!sortedNodes.Contains(node)){
+                    sortedNodes.Add(node);
+                }
 
                 foreach (T c in node.OutgoingLinks)
                 {
                     List<T> inLinks = new List<T>(graph.IdNodeMap[c].IncomingLinks);
-                    inLinks.Remove(node.ID);
+                    inLinks.Remove(node.Identity);
                     for (int i = 0; i < links.Count; i++)
                     {
-                        if (links[i].Source.Equals(node.ID) && links[i].Target.Equals(c))
+                        if (links[i].Source.Equals(node.Identity) && links[i].Target.Equals(c))
                         {
                             links.Remove(links[i]);
                         }
                     }
-                    if (!inLinks.Any())
+                    if (!startNodes.Contains(graph.IdNodeMap[c]))
                     {
                         startNodes.Add(graph.IdNodeMap[c]);
                     }
                 }
             }
-            if (links.Any())
-            {
-                return null;
-            }
-            else
-            {
-                return sortedNodes;
-            }
+            return sortedNodes;
         }
 
-        public bool isCyclic(){
-            if(sortedNodes == null){
-                return true;
-            }
-            return false;
+        public bool isCyclic()
+        {
+            return sortedNodes == null;
         }
 
+        /*A hasse graph is a directed, acyclic graph where if there are edges x to y and y to z,
+         then x to z is not an edge*/
         public Boolean isHesse()
         {
             HashSet<GraphNode<T>> roots = getSetOfStartNodes();
@@ -92,9 +92,10 @@ namespace Service.graph
             while (q.Any())
             {
                 GraphNode<T> v = q.Dequeue();
-                foreach(T c in v.OutgoingLinks){
+                foreach (T c in v.OutgoingLinks)
+                {
                     GraphNode<T> w = graph.IdNodeMap[c];
-                    if(nodesVisited.Contains(w)){return false;}
+                    if (nodesVisited.Contains(w)) { return false; }
                     nodesVisited.Add(w);
                     q.Enqueue(w);
                 }

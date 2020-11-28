@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 using Service.graph;
 
 namespace Service.tests
@@ -14,30 +13,35 @@ namespace Service.tests
         {
             //Setup
             Concept conceptA = new Concept("A");
-            Concept conceeptB = new Concept("B");
+            Concept conceptB = new Concept("B");
             Concept conceptC = new Concept("C");
             Concept conceptD = new Concept("D");
-            Concept conceptE = new Concept("E");
 
             Graph<Concept> graph = new Graph<Concept>.Builder()
-                    .addLink(conceptA, conceeptB)
-                    .addLink(conceeptB, conceptC)
-                    .addLink(conceptC, conceptD)
-                    .addLink(conceptD, conceptE)
+                    .addLink(conceptA, conceptB)
+                    .addLink(conceptA, conceptC)
                     .build();
 
             GraphAnalysis<Concept> analysis = new GraphAnalysis<Concept>(graph);
 
             //Expectations
-            List<GraphNode<Concept>> expected = new List<GraphNode<Concept>>();
-            expected.Add(graph.IdNodeMap[conceptA]);
-            expected.Add(graph.IdNodeMap[conceeptB]);
-            expected.Add(graph.IdNodeMap[conceptC]);
-            expected.Add(graph.IdNodeMap[conceptD]);
-            expected.Add(graph.IdNodeMap[conceptE]);
+            List<GraphNode<Concept>> expectedSortedNodes = new List<GraphNode<Concept>>();
+
+            GraphNode<Concept> conceptANode = new GraphNode<Concept>.Builder().withID(conceptA).
+                    withOutgoingLink(conceptB).withOutgoingLink(conceptC).build();
+
+            GraphNode<Concept> conceptBNode = new GraphNode<Concept>.Builder().withID(conceptB)
+                    .withIncomingLink(conceptA).build();
+
+            GraphNode<Concept> conceptCNode = new GraphNode<Concept>.Builder().withID(conceptC)
+                    .withIncomingLink(conceptA).build();
+
+            expectedSortedNodes.Add(conceptANode);
+            expectedSortedNodes.Add(conceptBNode);
+            expectedSortedNodes.Add(conceptCNode);
 
             //Test and assert
-            Assert.IsTrue(analysis.SortedNodes.SequenceEqual(expected));
+            Assert.IsTrue(expectedSortedNodes.SequenceEqual(analysis.SortedNodes));
         }
 
         [Test]
@@ -47,14 +51,11 @@ namespace Service.tests
             Concept conceptA = new Concept("A");
             Concept conceptB = new Concept("B");
             Concept conceptC = new Concept("C");
-            Concept conceptD = new Concept("D");
 
             Graph<Concept> graph = new Graph<Concept>.Builder()
                    .addLink(conceptA, conceptB)
                    .addLink(conceptB, conceptC)
                    .addLink(conceptC, conceptA)
-                   .addLink(conceptC, conceptD)
-                   .addLink(conceptA, conceptC)
                    .build();
 
             GraphAnalysis<Concept> analysis = new GraphAnalysis<Concept>(graph);

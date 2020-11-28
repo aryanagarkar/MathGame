@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace Service.graph
-{
+{ 
+    /*This is a generic graph. It has a map of generic objects to their corresponding graph nodes 
+    and a list of graphlinks of the same type*/
+    
     public class Graph<T>
     {
         readonly Dictionary<T, GraphNode<T>> idNodeMap;
@@ -35,7 +37,7 @@ namespace Service.graph
 
         public override bool Equals(object obj)
         {
-            Graph<T> graph = (Graph<T>)obj;
+            Graph<T> graph = (Graph<T>) obj;
             HashSet<T> thisNodes = new HashSet<T>(idNodeMap.Keys.ToHashSet());
             HashSet<T> otherNodes = new HashSet<T>(graph.idNodeMap.Keys);
 
@@ -92,8 +94,10 @@ namespace Service.graph
             private GraphNode<T>.Builder addOrGetNode(T id)
             {
                 bool contains = false;
-                foreach(T k in idNodeMap.Keys){
-                    if(k.Equals(id)){
+                foreach (T k in idNodeMap.Keys)
+                {
+                    if (k.Equals(id))
+                    {
                         contains = true;
                     }
                 }
@@ -103,8 +107,10 @@ namespace Service.graph
                     idNodeMap.Add(id, node);
                     return node;
                 }
-                foreach(T key in idNodeMap.Keys){
-                    if(key.Equals(id)){
+                foreach (T key in idNodeMap.Keys)
+                {
+                    if (key.Equals(id))
+                    {
                         GraphNode<T>.Builder node = idNodeMap[key];
                         return node;
                     }

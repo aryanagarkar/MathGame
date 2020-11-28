@@ -7,28 +7,30 @@ namespace Service.tests
     public class GraphNodeBuilderTests
     {
         [Test]
-        public void testNodeID(){
+        public void testNodeID()
+        {
             //Setup
-            GraphNode<Concept> node = createDefaultGraphNode();
+            GraphNode<Concept> expectedNode = createDefaultGraphNode();
 
             //Expectations
 
             //Test and assert
-            Assert.AreEqual(new Concept("A"), node.ID);
+            Assert.AreEqual(new Concept("A"), expectedNode.Identity);
         }
 
         [Test]
-        public void testNodeLinks(){
+        public void testNodeLinks()
+        {
             //Setup
-            GraphNode<Concept> node = createDefaultGraphNode();
+            GraphNode<Concept> expectedNode = createDefaultGraphNode();
 
             //Expectations
 
             //Test and assert
-            Assert.IsTrue(node.IncomingLinks.Contains(new Concept("C")));
-            Assert.IsTrue(node.IncomingLinks.Contains(new Concept("D")));
-            Assert.IsTrue(node.OutgoingLinks.Contains(new Concept("B")));
-            Assert.IsTrue(node.OutgoingLinks.Contains(new Concept("E")));
+            Assert.IsTrue(expectedNode.IncomingLinks.Contains(new Concept("C")));
+            Assert.IsTrue(expectedNode.IncomingLinks.Contains(new Concept("D")));
+            Assert.IsTrue(expectedNode.OutgoingLinks.Contains(new Concept("B")));
+            Assert.IsTrue(expectedNode.OutgoingLinks.Contains(new Concept("E")));
         }
 
         private GraphNode<Concept> createDefaultGraphNode()

@@ -7,15 +7,16 @@ namespace Service.tests
     public class ConceptTests
     {
         [Test]
-        public void testConceptEquals(){
+        public void testConceptEquals()
+        {
             //Setup
-            Concept actual = createDefaultConcept();
+            Concept actualConcept = createDefaultConcept();
 
             //Expectations
             Concept expected = new Concept("B");
 
             //Test and assert
-            Assert.IsTrue(actual.Equals(expected));
+            Assert.IsTrue(actualConcept.Equals(expected));
         }
 
         private Concept createDefaultConcept()

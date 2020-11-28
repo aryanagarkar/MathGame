@@ -11,7 +11,8 @@ namespace Service.graph
             this.concepts = concepts;
         }
 
-        public KnowlegeState(KnowlegeState state){
+        public KnowlegeState(KnowlegeState state)
+        {
             this.concepts = state.concepts;
         }
 
@@ -20,14 +21,14 @@ namespace Service.graph
             this.concepts = new HashSet<Concept>();
         }
 
-         public HashSet<Concept> Concepts
+        public HashSet<Concept> Concepts
         {
             get { return concepts; }
         }
 
         public override bool Equals(object obj)
         {
-            KnowlegeState other = (KnowlegeState)obj;
+            KnowlegeState other = (KnowlegeState) obj;
             return concepts.SetEquals(other.concepts);
         }
 

@@ -1,4 +1,8 @@
-**This is the readme for console applications.**
+﻿**This is the readme for console applications.**
+
+**Supported platforms:**
+
+The readme has been tested and is supported on linux.
 
 **Prerequisites:**
 

@@ -1,4 +1,8 @@
-**This readme is for games made in the unity development platform and has been tested on linux.**
+**This readme is for games made in the unity development platform**
+
+**Supported platforms:**
+
+The readme has been tested and is supported on linux.
 
 **Prerequisites:**
 

@@ -1,5 +1,9 @@
 ﻿namespace Service.graph
 {
+    
+    /*This is a generic graph link. It has a generic type source and target
+    and is used in a graph of the same type.*/
+
     public class GraphLink<T>
     {
         Graph<T> graph;
@@ -25,7 +29,7 @@
 
         public override bool Equals(object obj)
         {
-            GraphLink<T> link = (GraphLink<T>)obj;
+            GraphLink<T> link = (GraphLink<T>) obj;
             return source.Equals(link.Source) && target.Equals(link.target);
         }
 
@@ -66,6 +70,4 @@
             }
         }
     }
-
-
 }

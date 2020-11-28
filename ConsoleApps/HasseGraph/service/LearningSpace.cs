@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Service.graph
 {
@@ -7,6 +7,8 @@ namespace Service.graph
     {
         Graph<Concept> graph;
         KnowlegeState currentState;
+
+        List<KnowlegeState> allPossibleStates;
 
         public LearningSpace(HashSet<GraphLink<Concept>> links)
         {
@@ -17,32 +19,14 @@ namespace Service.graph
                 builder = builder.addLink(link.Source, link.Target);
             }
             graph = builder.build();
+
+            allPossibleStates = new List<KnowlegeState>();
+            getAllValidStates();
         }
 
-        public List<KnowlegeState> setUpAndgeneratePossibleStates()
+        public List<KnowlegeState> AllPossibleStates
         {
-            List<KnowlegeState> L = new List<KnowlegeState>();
-
-            Dictionary<Concept, int> np = new Dictionary<Concept, int>();
-            foreach (GraphNode<Concept> node in graph.Nodes)
-            {
-                np.Add(node.ID, node.IncomingLinks.Count);
-            }
-
-            List<Concept> cs = new List<Concept>();
-
-            foreach (Concept n in np.Keys)
-            {
-                if (np[n] == 0)
-                {
-                    cs.Add(n);
-                }
-            }
-
-            KnowlegeState emptyState = new KnowlegeState();
-            L.Add(emptyState);
-
-            return generatePossibleStates(L, emptyState, np, cs);
+            get { return allPossibleStates; }
         }
 
         public List<Concept> getLearnableConcepts()
@@ -83,58 +67,13 @@ namespace Service.graph
             }
         }
 
-        private List<KnowlegeState> generatePossibleStates(List<KnowlegeState> L, KnowlegeState state,
-        Dictionary<Concept, int> np, List<Concept> cs)
-        {
-            GraphAnalysis<Concept> analysis = new GraphAnalysis<Concept>(graph);
-            List<GraphNode<Concept>> T = analysis.SortedNodes;
-
-            List<Concept> c = new List<Concept>(cs);
-
-            if (state.Concepts.Count == graph.Nodes.Count) { return L; }
-            for (int i = 0; i < cs.Count; i++)
-            {
-                if (!state.Concepts.Contains(cs[i]))
-                {
-                    KnowlegeState nState = new KnowlegeState();
-                    foreach(Concept con in state.Concepts){
-                        nState.Concepts.Add(con);
-                    }
-                    nState.Concepts.Add(cs[i]);
-                    if(!L.Contains(nState)){
-                         L.Add(nState);
-                    }
-                }
-
-                foreach (Concept y in graph.IdNodeMap[cs[i]].OutgoingLinks)
-                {
-                    if (np[y] > 0)
-                    {
-                        np[y]--;
-                    }
-                    if (np[y] == 0 && !cs.Contains(y))
-                    {
-                        c.Add(y);
-                    }
-                }
-                foreach (GraphNode<Concept> y2 in T)
-                {
-                    if (T.IndexOf(y2) < T.IndexOf(graph.IdNodeMap[cs[i]]))
-                    {
-                        c.Remove(y2.ID);
-                    }
-                }
-            }
-            return generatePossibleStates(L, L[L.Count - 1], np, c);
-        }
-
         private List<Concept> generateFringeNodes()
         {
             List<Concept> fringe = new List<Concept>();
 
             foreach (GraphNode<Concept> node in graph.Nodes)
             {
-                fringe.Add(node.ID);
+                fringe.Add(node.Identity);
             }
 
             foreach (GraphLink<Concept> link in graph.Links)
@@ -149,6 +88,71 @@ namespace Service.graph
                 }
             }
             return fringe;
+        }
+
+        private HashSet<GraphNode<Concept>> getSetOfStartNodes()
+        {
+            HashSet<GraphNode<Concept>> startNodes = new HashSet<GraphNode<Concept>>();
+            foreach (Concept node in graph.IdNodeMap.Keys)
+            {
+                if (!graph.IdNodeMap[node].IncomingLinks.Any())
+                {
+                    startNodes.Add(graph.IdNodeMap[node]);
+                }
+            }
+            return startNodes;
+        }
+        
+        /*This method removes all state from possible states that are not valid*/
+        private void getAllValidStates()
+        {
+            updateAllPossibleStates(new KnowlegeState(), graph.Nodes);
+            allPossibleStates.Add(new KnowlegeState());
+            HashSet<GraphNode<Concept>> rootNodes = getSetOfStartNodes();
+
+            for (int i = 0; i < allPossibleStates.Count; i++)
+            {
+                if (allPossibleStates[i].Concepts.Count != 0)
+                {
+                    bool containsRootNode = false;
+                    foreach (GraphNode<Concept> node in rootNodes)
+                    {
+                        if (allPossibleStates[i].Concepts.Contains(node.Identity))
+                        {
+                            containsRootNode = true;
+                        }
+                    }
+
+                    if (containsRootNode == false)
+                    {
+                        allPossibleStates.Remove(allPossibleStates[i]);
+                    }
+                }
+            }
+        }
+
+        /*This is a recursive method that puts all combinations of the nodes
+        in the graph into the possible states*/
+        private void updateAllPossibleStates(KnowlegeState currentPermutation, IList<GraphNode<Concept>> nodes)
+        {
+            if (nodes.Count == 0) { return; }
+            foreach (GraphNode<Concept> node in nodes)
+            {
+                List<GraphNode<Concept>> nodesToCombinate = new List<GraphNode<Concept>>(nodes);
+                nodesToCombinate.Remove(node);
+                KnowlegeState state = new KnowlegeState();
+                foreach (Concept concept in currentPermutation.Concepts)
+                {
+                    state.Concepts.Add(concept);
+                }
+                state.Concepts.Add(node.Identity);
+                if (!allPossibleStates.Contains(state))
+                {
+                    allPossibleStates.Add(state);
+                }
+
+                updateAllPossibleStates(state, nodesToCombinate);
+            }
         }
 
         public class Builder

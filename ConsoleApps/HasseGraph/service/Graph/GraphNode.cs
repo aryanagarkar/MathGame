@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using System;
 
 namespace Service.graph
 {
+    /*This is a generic graph node. It has a generic type identity 
+    and links to other objects of the same type, It is used in a graph of the same type.*/
+    
     public class GraphNode<T>
     {
-        T id;
+        T identity;
         readonly List<T> incomingLinks;
         readonly List<T> outgoingLinks;
 
@@ -14,7 +16,7 @@ namespace Service.graph
         GraphNode(Graph<T> graph, T id, List<T> incoming, List<T> outgoing)
         {
             this.graph = graph;
-            this.id = id;
+            this.identity = id;
             this.incomingLinks = incoming;
             this.outgoingLinks = outgoing;
         }
@@ -34,19 +36,19 @@ namespace Service.graph
             get { return outgoingLinks; }
         }
 
-        public T ID
+        public T Identity
         {
-            get { return id; }
+            get { return identity; }
         }
 
         public override bool Equals(object obj)
         {
-            GraphNode<T> node = (GraphNode<T>)obj;
+            GraphNode<T> node = (GraphNode<T>) obj;
             HashSet<T> thisIncomingLinkSet = new HashSet<T>(incomingLinks);
             HashSet<T> thisOutgoingLinkSet = new HashSet<T>(outgoingLinks);
             HashSet<T> otherIncomingLinkSet = new HashSet<T>(node.incomingLinks);
             HashSet<T> otherOutgoingLinkSet = new HashSet<T>(node.outgoingLinks);
-            return id.Equals(node.ID)
+            return identity.Equals(node.Identity)
                 && thisIncomingLinkSet.SetEquals(
                     otherIncomingLinkSet)
                 && thisOutgoingLinkSet.SetEquals(

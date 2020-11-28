@@ -36,21 +36,30 @@ namespace Service.tests
 
 
             Assert.IsTrue(graph.IdNodeMap.Keys.Contains(conceptB));
+
             Assert.IsTrue(graph.IdNodeMap[conceptB]
-            .OutgoingLinks.Contains(conceptC));
+                    .OutgoingLinks.Contains(conceptC));
+
             Assert.IsTrue(graph.IdNodeMap[conceptB]
-            .OutgoingLinks.Contains(conceptD));
+                    .OutgoingLinks.Contains(conceptD));
+
             Assert.IsTrue(graph.IdNodeMap.ContainsKey(conceptC));
+
             Assert.IsTrue(graph.IdNodeMap[conceptC]
-            .IncomingLinks.Contains(conceptB));
+                    .IncomingLinks.Contains(conceptB));
+
             Assert.IsTrue(graph.IdNodeMap[conceptC]
-            .OutgoingLinks.Contains(conceptE));
+                    .OutgoingLinks.Contains(conceptE));
+
             Assert.IsTrue(graph.IdNodeMap.ContainsKey(conceptD));
+
             Assert.IsTrue(graph.IdNodeMap[conceptD]
-            .IncomingLinks.Contains(conceptB));
+                    .IncomingLinks.Contains(conceptB));
+
             Assert.IsTrue(graph.IdNodeMap.ContainsKey(conceptE));
+
             Assert.IsTrue(graph.IdNodeMap[conceptE]
-            .IncomingLinks.Contains(conceptC));
+                    .IncomingLinks.Contains(conceptC));
         }
 
         [Test]
@@ -72,7 +81,7 @@ namespace Service.tests
         }
 
         [Test]
-        public void testGraph_DuplicateLinkError()
+        public void testGraph_DosentAddDuplicateLink()
         {
             //Setup
             Graph<Concept> graph = new Graph<Concept>.Builder()
