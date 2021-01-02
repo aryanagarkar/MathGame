@@ -37,7 +37,6 @@ namespace Screens
         {
             gameName = GameNameInput.text;
         }
-        
         public void saveCharacter()
         {
             character = CharacterInput.text;

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Questions
+namespace Renderers
 {
-    public enum QuestionTypeEnum
+    public enum DisplayTypeEnum
     {
-        addition
+        circleDisplay
     }
 }
