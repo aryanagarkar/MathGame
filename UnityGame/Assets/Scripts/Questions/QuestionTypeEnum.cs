@@ -6,6 +6,9 @@ namespace Questions
 {
     public enum QuestionTypeEnum
     {
-        addition
+        addition,
+        subtraction,
+        multiplication,
+        division
     }
 }

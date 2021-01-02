@@ -2,19 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Questions;
+using Story;
 
 namespace state
 {
     [System.Serializable]
     public class State
     {
+        Grade grade;
+        Journey journey;
         Topic topic;
         int difficulty;
+        GraphNode currentNode;
 
-        public State(Topic topic, int difficulty)
+        public State(GraphNode currentNode, Grade grade, Journey journey, Topic topic, int difficulty)
         {
+            this.currentNode = currentNode;
+            this.grade = grade;
+            this.journey = journey;
             this.topic = topic;
             this.difficulty = difficulty;
+        }
+
+        public Grade Grade
+        {
+            get { return grade; }
+        }
+
+        public Journey Journey
+        {
+            get { return journey; }
         }
 
         public Topic Topic
@@ -27,9 +44,9 @@ namespace state
             get { return difficulty; }
         }
 
-        public bool IsEqual(State other)
+        public GraphNode CurrentNode
         {
-            return (topic == other.topic && difficulty == other.Difficulty);
+            get { return currentNode; }
         }
     }
 }

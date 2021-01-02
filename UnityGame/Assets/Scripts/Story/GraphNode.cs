@@ -1,26 +1,32 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Runtime.Serialization;
 
 namespace Story
 {
+    [DataContract]
     [System.Serializable]
     public class GraphNode
     {
-        public string Character { get; set; }
-        public List<string> Conversations { get; set; }
-        public MDictionary<string, List<string>> Links { get; set; }
+        [DataMember]
+        public string ID {get; set;}
+           [DataMember]
+        public StoryElement Element { get; set; }
+           [DataMember]
+        public List<GraphLink> Links { get; set; }
 
 
-        public GraphNode() { }
+        public GraphNode() { 
+            Links = new List<GraphLink>();
+        }
 
         public override bool Equals(object obj)
         {
             GraphNode node = (GraphNode)obj;
 
-            return Character.Equals(node.Character) 
-            && Conversations.SequenceEqual(node.Conversations) 
-            && Links.Equals(node.Links);
+            return ID.Equals(node.ID) && Element.Equals(node.Element)
+            && Links.SequenceEqual(node.Links);
         }
 
         public override int GetHashCode()

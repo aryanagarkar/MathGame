@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Renderers;
+using Rendering;
 
 namespace Questions
 {
@@ -44,14 +44,6 @@ namespace Questions
                     min = 21;
                     max = 30;
                     break;
-                case 4:
-                    min = 31;
-                    max = 40;
-                    break;
-                case 5:
-                    min = 41;
-                    max = 50;
-                    break;
                 default:
                     min = 1;
                     max = 10;
@@ -75,10 +67,6 @@ namespace Questions
                 case 2:
                     return 2;
                 case 3:
-                    return 2;
-                case 4:
-                    return 2;
-                case 5:
                     return 2;
                 default:
                     return 2;

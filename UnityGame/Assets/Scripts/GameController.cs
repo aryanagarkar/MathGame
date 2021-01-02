@@ -6,38 +6,46 @@ using Questions;
 using events;
 using state;
 using Gamedata;
-using Renderers;
+using Rendering;
+using Story;
 
 public class GameController : MonoBehaviour
 {
     StateMachine stateMachine;
 
+    [SerializeField]
+    GameObject prefabGoodJobScreen;
+
     void Start()
     {
         GameData data = SaveAndLoadSystem.loadData();
-        stateMachine = new StateMachine(data.history);
+
+        if(data.history.Empty){
+            stateMachine = new StateMachine();
+        }
+        else{
+            stateMachine = new StateMachine(data.history);
+        }
 
         Question question = Factory.createQuestion(stateMachine.CurrentState);
-        Camera.main.GetComponent<CircleDisplayRenderer>().display(question);
-    }
-
-    void Update()
-    {
-
+        Camera.main.GetComponent<Renderers>().displayUsingCorrectRenderer(
+            question, stateMachine.CurrentState.CurrentNode.Element);
     }
 
     public void rightAnswerEvent(){
         State newState = stateMachine.processEvent(EventTypeEnum.rightAnswerEvent);
         Question newQuestion = Factory.createQuestion(newState);
         destroyAllObjects();
-        Camera.main.GetComponent<CircleDisplayRenderer>().display(newQuestion);
+        Camera.main.GetComponent<Renderers>().displayUsingCorrectRenderer(
+            newQuestion, newState.CurrentNode.Element);
     }
 
     public void wrongAnswerEvent(){
         State newState = stateMachine.processEvent(EventTypeEnum.wrongAnswerEvent);
         Question newQuestion = Factory.createQuestion(newState);
         destroyAllObjects();
-        Camera.main.GetComponent<CircleDisplayRenderer>().display(newQuestion);
+        Camera.main.GetComponent<Renderers>().displayUsingCorrectRenderer(
+             newQuestion, newState.CurrentNode.Element);
     }
 
     private void destroyAllObjects(){

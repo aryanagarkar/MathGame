@@ -1186,9 +1186,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eec56ce92a3fe6f980706973e713e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DirectionCanvasPrefab: {fileID: 0}
-  GameNameInput: {fileID: 0}
-  CharacterInput: {fileID: 0}
+  DirectionCanvasPrefab: {fileID: 3921920090521428543, guid: 6497d6f03528a829bab37798d6a1515a,
+    type: 3}
+  GameNameInput: {fileID: 636075168}
+  CharacterInput: {fileID: 10212218}
 --- !u!1 &1718747540
 GameObject:
   m_ObjectHideFlags: 0

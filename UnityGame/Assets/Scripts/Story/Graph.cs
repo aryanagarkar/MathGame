@@ -1,12 +1,18 @@
-﻿namespace Story
+﻿using System.Linq;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+namespace Story
 {
+    [DataContract]
     [System.Serializable]
     public class Graph
     {
-        public MDictionary<string, GraphNode> Nodes { get; set; }
+        [DataMember]
+        public List<GraphNode> Nodes { get; set; }
 
         public Graph() {
-            Nodes = new MDictionary<string, GraphNode>();
+            Nodes = new List<GraphNode>();
          }
 
         public override bool Equals(object obj)
@@ -16,7 +22,7 @@
                 return false;
             }
             Graph graph = obj as Graph;
-            return Nodes.Equals(graph.Nodes);
+            return Nodes.SequenceEqual(graph.Nodes);
         }
 
         public override int GetHashCode()
